@@ -4,14 +4,14 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 104.71025318569636,
-        "y": 1264.5862537937146
+        "x": 675.0253309958058,
+        "y": 2356.4891482013936
       },
       "nodes": [
         {
           "location": {
             "x": 1275.5717134718388,
-            "y": 1870.1179819647664
+            "y": 2724.0141462440874
           },
           "nodeIndex": "region_dim",
           "nodeLineageTag": "43549e18-2650-4bfa-88e6-f723fec6a67d",
@@ -24,7 +24,7 @@
         {
           "location": {
             "x": 434.8772301803146,
-            "y": 1867.7923285586421
+            "y": 2721.6884928379632
           },
           "nodeIndex": "taster_dim",
           "nodeLineageTag": "756895b3-922a-4fb0-be96-d4dbec637327",
@@ -37,7 +37,7 @@
         {
           "location": {
             "x": 1512.734826206638,
-            "y": 2204.1180049310178
+            "y": 3058.0141692103389
           },
           "nodeIndex": "wine_fact",
           "nodeLineageTag": "f8762d49-4913-4512-bae7-dbe5efa6438a",
@@ -50,7 +50,7 @@
         {
           "location": {
             "x": 51,
-            "y": 1872.0283709202686
+            "y": 2725.9245351995896
           },
           "nodeIndex": "winery_dim",
           "nodeLineageTag": "7e12d3d0-833e-4ab1-b752-3a6e45c87d16",
@@ -63,7 +63,7 @@
         {
           "location": {
             "x": 2152.9017379131865,
-            "y": 2204.3952039922842
+            "y": 3058.2913682716053
           },
           "nodeIndex": "z word rank",
           "nodeLineageTag": "1c48d49a-cc27-4b55-9b77-d9805af5bfdc",
@@ -76,7 +76,7 @@
         {
           "location": {
             "x": 2427.7790715064866,
-            "y": 2205.3197930565152
+            "y": 3059.2159573358363
           },
           "nodeIndex": "_All Measures",
           "nodeLineageTag": "e4ea62c7-c796-4ee9-a1d3-853dbae14a99",
@@ -89,7 +89,7 @@
         {
           "location": {
             "x": 1604.1464334406428,
-            "y": 1878.7923285586421
+            "y": 2732.6884928379632
           },
           "nodeIndex": "description_dim",
           "nodeLineageTag": "827287f8-1991-4f5a-99a0-315905b87798",
@@ -102,7 +102,7 @@
         {
           "location": {
             "x": 711.1464334406428,
-            "y": 1867.7923285586421
+            "y": 2721.6884928379632
           },
           "nodeIndex": "province_dim",
           "nodeLineageTag": "89a3a8d9-4c5e-4a71-8e43-30444c3b1141",
@@ -115,7 +115,7 @@
         {
           "location": {
             "x": 1887.9405008234553,
-            "y": 1877.3952039922842
+            "y": 2731.2913682716053
           },
           "nodeIndex": "country_dim",
           "nodeLineageTag": "e70c34cd-6194-4515-8de7-719ba38be0f5",
@@ -128,7 +128,7 @@
         {
           "location": {
             "x": 2433.4913928791138,
-            "y": 1878.9045383654866
+            "y": 2732.8007026448076
           },
           "nodeIndex": "designation_dim",
           "nodeLineageTag": "856e2109-006a-46c2-95ee-27e88f8bfa09",
@@ -141,7 +141,7 @@
         {
           "location": {
             "x": 1612.1464334406428,
-            "y": 1707.7923285586421
+            "y": 2561.6884928379632
           },
           "nodeIndex": "word_summary_pqe",
           "size": {
@@ -153,7 +153,7 @@
         {
           "location": {
             "x": 1884.706386953615,
-            "y": 2206.0695505861604
+            "y": 3059.9657148654815
           },
           "nodeIndex": "Country Max Avg Price",
           "nodeLineageTag": "92ca059f-cdb3-4857-80f3-3e8695260b81",
@@ -166,7 +166,7 @@
         {
           "location": {
             "x": 2166.3220096232167,
-            "y": 1878.1945505861602
+            "y": 2732.0907148654815
           },
           "nodeIndex": "variety_dim",
           "nodeLineageTag": "e851a714-b822-43f9-a6df-ae9ec692d059",
@@ -179,7 +179,7 @@
         {
           "location": {
             "x": 2769.8743270963355,
-            "y": 2198.2784266271365
+            "y": 3052.1745909064575
           },
           "nodeIndex": "Top N",
           "nodeLineageTag": "0ac8a9d2-38b3-41e9-bda3-711ed8a3f5b6",
@@ -192,7 +192,7 @@
         {
           "location": {
             "x": 982.46272983231847,
-            "y": 1870.0657104389225
+            "y": 2723.9618747182435
           },
           "nodeIndex": "value_rating_dim",
           "nodeLineageTag": "2257dcae-1a01-4e81-a7ac-dead2af6d60d",

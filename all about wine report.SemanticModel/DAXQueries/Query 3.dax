@@ -1,0 +1,45 @@
+DEFINE
+	VAR __DS0FilterTable = 
+		TREATAS({10}, 'Top N'[Top N])
+
+	VAR __ValueFilterDM0 = 
+		FILTER(
+			KEEPFILTERS(
+				SUMMARIZECOLUMNS(
+					'winery_dim'[winery],
+					__DS0FilterTable,
+					"Avg_Price_Point_Ratio_Rank__winery_", '_All Measures'[Avg Price Point Ratio Rank (winery)],
+					"v__Wines", '_All Measures'[# Wines],
+					"Avg_Price", '_All Measures'[Avg Price],
+					"Avg_Points", '_All Measures'[Avg Points],
+					"Avg_Price_Points_Ratio", '_All Measures'[Avg Price Points Ratio],
+					"Avg_Value_Rating", '_All Measures'[Avg Value Rating],
+					"Top_Winery_Variety", '_All Measures'[Top Winery Variety],
+					"Select_Winery_Rank__Winery_", IGNORE('_All Measures'[Select Winery Rank (Winery)])
+				)
+			),
+			[Select_Winery_Rank__Winery_] = 1
+		)
+
+	VAR __DS0Core = 
+		SUMMARIZECOLUMNS(
+			'winery_dim'[winery],
+			__DS0FilterTable,
+			__ValueFilterDM0,
+			"Avg_Price_Point_Ratio_Rank__winery_", '_All Measures'[Avg Price Point Ratio Rank (winery)],
+			"v__Wines", '_All Measures'[# Wines],
+			"Avg_Price", '_All Measures'[Avg Price],
+			"Avg_Points", '_All Measures'[Avg Points],
+			"Avg_Price_Points_Ratio", '_All Measures'[Avg Price Points Ratio],
+			"Avg_Value_Rating", '_All Measures'[Avg Value Rating],
+			"Top_Winery_Variety", '_All Measures'[Top Winery Variety]
+		)
+
+	VAR __DS0PrimaryWindowed = 
+		TOPN(501, __DS0Core, [Avg_Price_Point_Ratio_Rank__winery_], 1, 'winery_dim'[winery], 1)
+
+EVALUATE
+	__DS0PrimaryWindowed
+
+ORDER BY
+	[Avg_Price_Point_Ratio_Rank__winery_], 'winery_dim'[winery]

@@ -180,7 +180,7 @@ expression winemag-data-source-production =
 
 	annotation PBI_ResultType = Table
 
-expression No_Of_Rows_To_Load = 200000 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
+expression No_Of_Rows_To_Load = 25000 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
 	lineageTag: e34f3e26-17a5-4b31-a395-8ec52d3eea68
 
 	annotation PBI_NavigationStepName = Navigation

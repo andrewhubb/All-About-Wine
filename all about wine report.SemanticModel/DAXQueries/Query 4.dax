@@ -1,0 +1,41 @@
+DEFINE
+	VAR __DS0FilterTable = 
+		FILTER(
+			KEEPFILTERS(VALUES('wine_fact'[area])),
+			OR('wine_fact'[area] <> "", ISBLANK('wine_fact'[area]) <> ISBLANK(""))
+		)
+
+	VAR __DS0FilterTable2 = 
+		TREATAS({5}, 'Top N'[Top N])
+
+	VAR __ValueFilterDM0 = 
+		FILTER(
+			KEEPFILTERS(
+				SUMMARIZECOLUMNS(
+					'wine_fact'[area],
+					__DS0FilterTable,
+					__DS0FilterTable2,
+					"v__Wineries", '_All Measures'[# Wineries],
+					"Select_Winery_Rank__Area_", IGNORE('_All Measures'[Select Winery Rank (Area)])
+				)
+			),
+			[Select_Winery_Rank__Area_] = 1
+		)
+
+	VAR __DS0Core = 
+		SUMMARIZECOLUMNS(
+			'wine_fact'[area],
+			__DS0FilterTable,
+			__DS0FilterTable2,
+			__ValueFilterDM0,
+			"v__Wineries", '_All Measures'[# Wineries]
+		)
+
+	VAR __DS0PrimaryWindowed = 
+		TOPN(1001, __DS0Core, [v__Wineries], 0, 'wine_fact'[area], 1)
+
+EVALUATE
+	__DS0PrimaryWindowed
+
+ORDER BY
+	[v__Wineries] DESC, 'wine_fact'[area]

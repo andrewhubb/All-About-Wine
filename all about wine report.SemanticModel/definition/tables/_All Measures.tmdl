@@ -406,19 +406,12 @@ table '_All Measures'
 			)
 		lineageTag: 96d7204f-a5c5-4aee-be33-bc7cbd72ae8f
 
-	measure '# Wineries' =
+	measure '# Wineries' = ```
 			
-			CALCULATE(
-			    DISTINCTCOUNT(
-			        winery_dim[winery]
-			    ),
-			    CROSSFILTER(
-			        wine_fact[winery_key],
-			        winery_dim[winery_key],
-			        Both
-			    )
-			)
-		formatString: #,0
+			    DISTINCTCOUNT(wine_fact[winery_key]) 
+			
+			```
+		formatString: 0
 		displayFolder: Numbers of Things
 		lineageTag: 6e7554d6-aec3-46c5-8e3c-87766b9978ab
 
@@ -1134,10 +1127,9 @@ table '_All Measures'
 			    )
 			)
 			```
+		formatString: 0.00
 		displayFolder: Average
 		lineageTag: 897a0f80-9394-449c-9529-5792a8240d32
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Select Winery Rank (Winery)' = ```
 			
@@ -1166,6 +1158,92 @@ table '_All Measures'
 		formatString: 0
 		displayFolder: Numbers of Things
 		lineageTag: 67fe6679-0588-4f34-a2ca-8320a9feba41
+
+	measure 'Avg Value Rating' = ```
+			
+			VAR CurrentPricePointsRatio = [Avg Price Points Ratio]
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        CurrentPricePointsRatio < 0.05, "Excellent",
+			        CurrentPricePointsRatio < 0.10, "Good",
+			        CurrentPricePointsRatio < 0.15, "Average",
+			        "Poor"
+			    )
+			
+			
+			
+			
+			```
+		lineageTag: c6cb6778-a602-4d9f-95a7-8c8a061aef1b
+
+	measure 'Top Winery Variety' = ```
+			
+			VAR MaxWines = 
+			    MAXX(
+			        VALUES(variety_dim[variety]),
+			        [# Wines]
+			    )
+			
+			VAR TopVarieties = 
+			    FILTER(
+			        VALUES(variety_dim[variety]),
+			        [# Wines] = MaxWines
+			    )
+			
+			VAR MaxPoints = 
+			    MAXX(
+			        TopVarieties,
+			        [Avg Points]
+			    )
+			
+			VAR TopVarietiesWithPoints = 
+			    FILTER(
+			        TopVarieties,
+			        [Avg Points] = MaxPoints
+			    )
+			
+			RETURN 
+			    CONCATENATEX(
+			        TopVarietiesWithPoints,
+			        variety_dim[variety],
+			        " / ",
+			        variety_dim[variety],
+			        ASC
+			    )
+			 
+			        
+			```
+		lineageTag: cc7f461f-624f-4909-898a-6a92aa71d9df
+
+	measure '# Winery Rank (Area)' =
+			
+			VAR SelectedTopN = [Selected N]
+			RETURN
+			RANKX(
+			    FILTER(
+			        ALL(
+			            wine_fact[area]
+			        ),
+			        wine_fact[area] <> BLANK()
+			    ),
+			    [# Wineries],,
+			    DESC,
+			    Dense
+			)
+		formatString: 0
+		lineageTag: 38d3d815-9e74-4aa4-8de5-bc888e02705e
+
+	measure 'Select Winery Rank (Area)' = ```
+			
+			IF (     
+			    [# Winery Rank (Area)] <= [Selected N],    
+			    1,
+			    0
+			)
+			```
+		formatString: 0
+		lineageTag: 734ccfc9-aba9-44aa-a41f-5cb81578e238
 
 	column Column1
 		dataType: string

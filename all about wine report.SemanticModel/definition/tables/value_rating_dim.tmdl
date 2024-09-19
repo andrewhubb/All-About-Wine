@@ -23,7 +23,7 @@ table value_rating_dim
 		queryGroup: dimensions
 		source =
 				let
-				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCsjPL1IIS8wpTVXSUTJQitWJVnIsSy1KTE+FixqCRRXc8/NT4GJGYDHXiuTUnJzUvBK4uLFSbCwA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [value_rating = _t, value_rating_key = _t]),
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCsjPL1IIS8wpTVXSUTJQitWJVnIsSy1KTE+FixqCRd3z81PgQkZgIdeK5NScnNS8Eri4sVJsLAA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [value_rating = _t, value_rating_key = _t]),
 				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"value_rating", type text}, {"value_rating_key", Int64.Type}})
 				in
 				    #"Changed Type"

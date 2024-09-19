@@ -7,7 +7,6 @@ relationship 4dde288b-6e7a-4ca5-a4ef-38c94abc87cd
 	toColumn: taster_dim.taster_key
 
 relationship d06775f8-dcb5-49f5-b2dd-56e968c082f4
-	crossFilteringBehavior: bothDirections
 	fromColumn: wine_fact.winery_key
 	toColumn: winery_dim.winery_key
 

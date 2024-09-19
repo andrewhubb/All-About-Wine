@@ -3665,16 +3665,6 @@ cultureInfo en-GB
 			            },
 			            "Weight": 0.582
 			          }
-			        },
-			        {
-			          "No. of Wines": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
 			        }
 			      ]
 			    },
@@ -5250,18 +5240,18 @@ cultureInfo en-GB
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "min score": {
+			          "min points": {
 			            "State": "Generated"
 			          }
 			        },
 			        {
-			          "score": {
+			          "points": {
 			            "State": "Generated",
 			            "Weight": 0.97
 			          }
 			        },
 			        {
-			          "minimum score": {
+			          "minimum point": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
@@ -5271,93 +5261,93 @@ cultureInfo en-GB
 			          }
 			        },
 			        {
-			          "min notch": {
+			          "min opinion": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.5
 			          }
 			        },
 			        {
-			          "min slash": {
+			          "min fact": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.5
 			          }
 			        },
 			        {
-			          "min groove": {
+			          "min idea": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.5
 			          }
 			        },
 			        {
-			          "min nick": {
+			          "min argument": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.5
 			          }
 			        },
 			        {
-			          "min cut": {
+			          "min topic": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.5
 			          }
 			        },
 			        {
-			          "min mark": {
+			          "opinion": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.485
+			            "Weight": 0.491
 			          }
 			        },
 			        {
-			          "notch": {
+			          "idea": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.476
+			            "Weight": 0.491
 			          }
 			        },
 			        {
-			          "slash": {
+			          "argument": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.476
+			            "Weight": 0.491
 			          }
 			        },
 			        {
-			          "groove": {
+			          "topic": {
 			            "Type": "Noun",
 			            "State": "Suggested",
 			            "Source": {
 			              "Agent": "Thesaurus"
 			            },
-			            "Weight": 0.476
+			            "Weight": 0.491
 			          }
 			        }
 			      ]
@@ -7007,16 +6997,6 @@ cultureInfo en-GB
 			            },
 			            "Weight": 0.748
 			          }
-			        },
-			        {
-			          "Most Expensive Wine:": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
 			        }
 			      ]
 			    },
@@ -7266,16 +7246,6 @@ cultureInfo en-GB
 			              "Agent": "Thesaurus"
 			            },
 			            "Weight": 0.591
-			          }
-			        },
-			        {
-			          "Taster with Most Reviews": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
 			          }
 			        }
 			      ]
@@ -10273,16 +10243,6 @@ cultureInfo en-GB
 			            "State": "Generated",
 			            "Weight": 0.75
 			          }
-			        },
-			        {
-			          "Winery Rank": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
 			        }
 			      ]
 			    },
@@ -11430,9 +11390,818 @@ cultureInfo en-GB
 			          }
 			        }
 			      ]
+			    },
+			    "wine_fact.titlepointsprice": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "wine_fact",
+			          "ConceptualProperty": "Title-Points-Price"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "title-points-price": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "title-point-price": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.78
+			          }
+			        },
+			        {
+			          "title points price": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "title point price": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.7566
+			          }
+			        },
+			        {
+			          "points price": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "point price": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.7566
+			          }
+			        },
+			        {
+			          "designation -point-price": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.624
+			          }
+			        },
+			        {
+			          "designation point price": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.609
+			          }
+			        },
+			        {
+			          "name -point-price": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.605
+			          }
+			        },
+			        {
+			          "award -point-price": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.605
+			          }
+			        },
+			        {
+			          "call -point-price": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.605
+			          }
+			        },
+			        {
+			          "heading -point-price": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.605
+			          }
+			        },
+			        {
+			          "label -point-price": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.605
+			          }
+			        },
+			        {
+			          "name point price": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.591
+			          }
+			        },
+			        {
+			          "award point price": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.591
+			          }
+			        },
+			        {
+			          "call point price": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.591
+			          }
+			        }
+			      ]
+			    },
+			    "v_All_Measures_all_measure.avg_value_rating": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_All Measures",
+			          "ConceptualProperty": "Avg Value Rating"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "avg value rating": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "average value rating": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.591
+			          }
+			        },
+			        {
+			          "avg value assessment": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "avg value evaluation": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "avg value score": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.492
+			          }
+			        },
+			        {
+			          "avg value grade": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.492
+			          }
+			        },
+			        {
+			          "avg value ranking": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.492
+			          }
+			        },
+			        {
+			          "avg value mark": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.492
+			          }
+			        },
+			        {
+			          "avg value sailor": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.482
+			          }
+			        },
+			        {
+			          "avg value seaman": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.482
+			          }
+			        },
+			        {
+			          "avg value hand": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.468
+			          }
+			        }
+			      ]
+			    },
+			    "v_All_Measures_all_measure.top_winery_variety": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_All Measures",
+			          "ConceptualProperty": "Top Winery Variety"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "top winery variety": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "winery variety": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "best winery variety": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.591
+			          }
+			        },
+			        {
+			          "first winery variety": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.591
+			          }
+			        },
+			        {
+			          "leading winery variety": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.591
+			          }
+			        },
+			        {
+			          "maximum winery variety": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.591
+			          }
+			        },
+			        {
+			          "peak winery variety": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.591
+			          }
+			        },
+			        {
+			          "upper winery variety": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.591
+			          }
+			        },
+			        {
+			          "top winery diversity": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "top winery variability": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "top winery variation": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "winery diversity": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        }
+			      ]
 			    }
 			  },
 			  "Relationships": {
+			    "wine_fact_has_taster_dim": {
+			      "Binding": {
+			        "ConceptualEntity": "wine_fact"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "wine_fact": {
+			          "Target": {
+			            "Entity": "wine_fact"
+			          }
+			        },
+			        "taster_dim": {
+			          "Target": {
+			            "Entity": "taster_dim"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "wine_fact"
+			            },
+			            "Object": {
+			              "Role": "taster_dim"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "wine_facts_have_taster_dims"
+			        },
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "taster_dim"
+			            },
+			            "Object": {
+			              "Role": "wine_fact"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "taster_dims_have_wine_facts"
+			        }
+			      ]
+			    },
+			    "wine_fact_has_region_dim": {
+			      "Binding": {
+			        "ConceptualEntity": "wine_fact"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "wine_fact": {
+			          "Target": {
+			            "Entity": "wine_fact"
+			          }
+			        },
+			        "region_dim": {
+			          "Target": {
+			            "Entity": "region_dim"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "wine_fact"
+			            },
+			            "Object": {
+			              "Role": "region_dim"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "wine_facts_have_region_dims"
+			        },
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "region_dim"
+			            },
+			            "Object": {
+			              "Role": "wine_fact"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "region_dims_have_wine_facts"
+			        }
+			      ]
+			    },
+			    "v_All_Measures_all_measure_has_top_winery_variety": {
+			      "Binding": {
+			        "ConceptualEntity": "_All Measures"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "v_All_Measures_all_measure": {
+			          "Target": {
+			            "Entity": "v_All_Measures_all_measure"
+			          }
+			        },
+			        "v_All_Measures_all_measure.top_winery_variety": {
+			          "Target": {
+			            "Entity": "v_All_Measures_all_measure.top_winery_variety"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "v_All_Measures_all_measure"
+			            },
+			            "Object": {
+			              "Role": "v_All_Measures_all_measure.top_winery_variety"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "Phrasing_all_measures_have_top_winery_variety"
+			        }
+			      ]
+			    },
+			    "v_All_Measures_all_measure_has_avg_value_rating": {
+			      "Binding": {
+			        "ConceptualEntity": "_All Measures"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "v_All_Measures_all_measure": {
+			          "Target": {
+			            "Entity": "v_All_Measures_all_measure"
+			          }
+			        },
+			        "v_All_Measures_all_measure.avg_value_rating": {
+			          "Target": {
+			            "Entity": "v_All_Measures_all_measure.avg_value_rating"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "v_All_Measures_all_measure"
+			            },
+			            "Object": {
+			              "Role": "v_All_Measures_all_measure.avg_value_rating"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "Phrasing_all_measures_have_avg_value_rating"
+			        }
+			      ]
+			    },
+			    "wine_fact_has_titlepointsprice": {
+			      "Binding": {
+			        "ConceptualEntity": "wine_fact"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "wine_fact": {
+			          "Target": {
+			            "Entity": "wine_fact"
+			          }
+			        },
+			        "wine_fact.titlepointsprice": {
+			          "Target": {
+			            "Entity": "wine_fact.titlepointsprice"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "wine_fact"
+			            },
+			            "Object": {
+			              "Role": "wine_fact.titlepointsprice"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "wine_facts_have_titlepointsprices"
+			        }
+			      ]
+			    },
+			    "variety_dim_has_grape_characteristic": {
+			      "Binding": {
+			        "ConceptualEntity": "variety_dim"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "variety_dim": {
+			          "Target": {
+			            "Entity": "variety_dim"
+			          }
+			        },
+			        "variety_dim.grape_characteristic": {
+			          "Target": {
+			            "Entity": "variety_dim.grape_characteristic"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "variety_dim"
+			            },
+			            "Object": {
+			              "Role": "variety_dim.grape_characteristic"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "variety_dims_have_grape_characteristics"
+			        }
+			      ]
+			    },
+			    "variety_dim_has_origin": {
+			      "Binding": {
+			        "ConceptualEntity": "variety_dim"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "variety_dim": {
+			          "Target": {
+			            "Entity": "variety_dim"
+			          }
+			        },
+			        "variety_dim.origin": {
+			          "Target": {
+			            "Entity": "variety_dim.origin"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "variety_dim"
+			            },
+			            "Object": {
+			              "Role": "variety_dim.origin"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "variety_dims_have_origins"
+			        }
+			      ]
+			    },
+			    "variety_dim_has_type": {
+			      "Binding": {
+			        "ConceptualEntity": "variety_dim"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "variety_dim": {
+			          "Target": {
+			            "Entity": "variety_dim"
+			          }
+			        },
+			        "variety_dim.type": {
+			          "Target": {
+			            "Entity": "variety_dim.type"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "variety_dim"
+			            },
+			            "Object": {
+			              "Role": "variety_dim.type"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "variety_dims_have_types"
+			        }
+			      ]
+			    },
+			    "variety_dim_has_variety": {
+			      "Binding": {
+			        "ConceptualEntity": "variety_dim"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "variety_dim": {
+			          "Target": {
+			            "Entity": "variety_dim"
+			          }
+			        },
+			        "variety_dim.variety": {
+			          "Target": {
+			            "Entity": "variety_dim.variety"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "variety_dim"
+			            },
+			            "Object": {
+			              "Role": "variety_dim.variety"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "variety_dims_have_varieties"
+			        }
+			      ]
+			    },
+			    "variety_dim_has_variety_key": {
+			      "Binding": {
+			        "ConceptualEntity": "variety_dim"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "variety_dim": {
+			          "Target": {
+			            "Entity": "variety_dim"
+			          }
+			        },
+			        "variety_dim.variety_key": {
+			          "Target": {
+			            "Entity": "variety_dim.variety_key"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "variety_dim"
+			            },
+			            "Object": {
+			              "Role": "variety_dim.variety_key"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "variety_dims_have_variety_keys"
+			        }
+			      ]
+			    },
+			    "wine_fact_has_v_All_Measures_all_measure_wines_description": {
+			      "Binding": {
+			        "ConceptualEntity": "wine_fact"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "wine_fact": {
+			          "Target": {
+			            "Entity": "wine_fact"
+			          }
+			        },
+			        "v_All_Measures_all_measure.wines_description": {
+			          "Target": {
+			            "Entity": "v_All_Measures_all_measure.wines_description"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "wine_fact"
+			            },
+			            "Object": {
+			              "Role": "v_All_Measures_all_measure.wines_description"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "wine_facts_have__wines_description"
+			        }
+			      ]
+			    },
+			    "value_rating_dim_has_value_rating_key": {
+			      "Binding": {
+			        "ConceptualEntity": "value_rating_dim"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "value_rating_dim": {
+			          "Target": {
+			            "Entity": "value_rating_dim"
+			          }
+			        },
+			        "value_rating_dim.value_rating_key": {
+			          "Target": {
+			            "Entity": "value_rating_dim.value_rating_key"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "value_rating_dim"
+			            },
+			            "Object": {
+			              "Role": "value_rating_dim.value_rating_key"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "value_rating_dims_have_value_rating_keys"
+			        }
+			      ]
+			    },
 			    "value_rating_dim_has_value_rating": {
 			      "Binding": {
 			        "ConceptualEntity": "value_rating_dim"
@@ -12093,39 +12862,6 @@ cultureInfo en-GB
 			        }
 			      ]
 			    },
-			    "wine_fact_has_v_All_Measures_all_measure_oldest_wine_points": {
-			      "Binding": {
-			        "ConceptualEntity": "wine_fact"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "wine_fact": {
-			          "Target": {
-			            "Entity": "wine_fact"
-			          }
-			        },
-			        "v_All_Measures_all_measure.oldest_wine_points": {
-			          "Target": {
-			            "Entity": "v_All_Measures_all_measure.oldest_wine_points"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "wine_fact"
-			            },
-			            "Object": {
-			              "Role": "v_All_Measures_all_measure.oldest_wine_points"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "wine_facts_have_oldest_wine_points"
-			        }
-			      ]
-			    },
 			    "wine_fact_has_v_All_Measures_all_measure_most_expensive_wine_points": {
 			      "Binding": {
 			        "ConceptualEntity": "wine_fact"
@@ -12453,39 +13189,6 @@ cultureInfo en-GB
 			          "State": "Generated",
 			          "Weight": 0.99,
 			          "ID": "wine_facts_have_year"
-			        }
-			      ]
-			    },
-			    "wine_fact_has_v_All_Measures_all_measure_oldest_year": {
-			      "Binding": {
-			        "ConceptualEntity": "wine_fact"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "wine_fact": {
-			          "Target": {
-			            "Entity": "wine_fact"
-			          }
-			        },
-			        "v_All_Measures_all_measure.oldest_year": {
-			          "Target": {
-			            "Entity": "v_All_Measures_all_measure.oldest_year"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "wine_fact"
-			            },
-			            "Object": {
-			              "Role": "v_All_Measures_all_measure.oldest_year"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "wine_facts_have_oldest_year"
 			        }
 			      ]
 			    },
@@ -13826,7 +14529,7 @@ cultureInfo en-GB
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "wine_facts_have_min_score"
+			          "ID": "wine_facts_have_min_points"
 			        }
 			      ]
 			    },
@@ -15838,329 +16541,6 @@ cultureInfo en-GB
 			          "State": "Generated",
 			          "Weight": 0.99,
 			          "ID": "province_dims_are_in_provinces"
-			        }
-			      ]
-			    },
-			    "value_rating_dim_has_value_rating_key": {
-			      "Binding": {
-			        "ConceptualEntity": "value_rating_dim"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "value_rating_dim": {
-			          "Target": {
-			            "Entity": "value_rating_dim"
-			          }
-			        },
-			        "value_rating_dim.value_rating_key": {
-			          "Target": {
-			            "Entity": "value_rating_dim.value_rating_key"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "value_rating_dim"
-			            },
-			            "Object": {
-			              "Role": "value_rating_dim.value_rating_key"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "value_rating_dims_have_value_rating_keys"
-			        }
-			      ]
-			    },
-			    "wine_fact_has_v_All_Measures_all_measure_wines_description": {
-			      "Binding": {
-			        "ConceptualEntity": "wine_fact"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "wine_fact": {
-			          "Target": {
-			            "Entity": "wine_fact"
-			          }
-			        },
-			        "v_All_Measures_all_measure.wines_description": {
-			          "Target": {
-			            "Entity": "v_All_Measures_all_measure.wines_description"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "wine_fact"
-			            },
-			            "Object": {
-			              "Role": "v_All_Measures_all_measure.wines_description"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "wine_facts_have__wines_description"
-			        }
-			      ]
-			    },
-			    "variety_dim_has_variety_key": {
-			      "Binding": {
-			        "ConceptualEntity": "variety_dim"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "variety_dim": {
-			          "Target": {
-			            "Entity": "variety_dim"
-			          }
-			        },
-			        "variety_dim.variety_key": {
-			          "Target": {
-			            "Entity": "variety_dim.variety_key"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "variety_dim"
-			            },
-			            "Object": {
-			              "Role": "variety_dim.variety_key"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "variety_dims_have_variety_keys"
-			        }
-			      ]
-			    },
-			    "variety_dim_has_variety": {
-			      "Binding": {
-			        "ConceptualEntity": "variety_dim"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "variety_dim": {
-			          "Target": {
-			            "Entity": "variety_dim"
-			          }
-			        },
-			        "variety_dim.variety": {
-			          "Target": {
-			            "Entity": "variety_dim.variety"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "variety_dim"
-			            },
-			            "Object": {
-			              "Role": "variety_dim.variety"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "variety_dims_have_varieties"
-			        }
-			      ]
-			    },
-			    "variety_dim_has_type": {
-			      "Binding": {
-			        "ConceptualEntity": "variety_dim"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "variety_dim": {
-			          "Target": {
-			            "Entity": "variety_dim"
-			          }
-			        },
-			        "variety_dim.type": {
-			          "Target": {
-			            "Entity": "variety_dim.type"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "variety_dim"
-			            },
-			            "Object": {
-			              "Role": "variety_dim.type"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "variety_dims_have_types"
-			        }
-			      ]
-			    },
-			    "variety_dim_has_origin": {
-			      "Binding": {
-			        "ConceptualEntity": "variety_dim"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "variety_dim": {
-			          "Target": {
-			            "Entity": "variety_dim"
-			          }
-			        },
-			        "variety_dim.origin": {
-			          "Target": {
-			            "Entity": "variety_dim.origin"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "variety_dim"
-			            },
-			            "Object": {
-			              "Role": "variety_dim.origin"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "variety_dims_have_origins"
-			        }
-			      ]
-			    },
-			    "variety_dim_has_grape_characteristic": {
-			      "Binding": {
-			        "ConceptualEntity": "variety_dim"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "variety_dim": {
-			          "Target": {
-			            "Entity": "variety_dim"
-			          }
-			        },
-			        "variety_dim.grape_characteristic": {
-			          "Target": {
-			            "Entity": "variety_dim.grape_characteristic"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "variety_dim"
-			            },
-			            "Object": {
-			              "Role": "variety_dim.grape_characteristic"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "variety_dims_have_grape_characteristics"
-			        }
-			      ]
-			    },
-			    "wine_fact_has_region_dim": {
-			      "Binding": {
-			        "ConceptualEntity": "wine_fact"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "wine_fact": {
-			          "Target": {
-			            "Entity": "wine_fact"
-			          }
-			        },
-			        "region_dim": {
-			          "Target": {
-			            "Entity": "region_dim"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "wine_fact"
-			            },
-			            "Object": {
-			              "Role": "region_dim"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "wine_facts_have_region_dims"
-			        },
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "region_dim"
-			            },
-			            "Object": {
-			              "Role": "wine_fact"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "region_dims_have_wine_facts"
-			        }
-			      ]
-			    },
-			    "wine_fact_has_taster_dim": {
-			      "Binding": {
-			        "ConceptualEntity": "wine_fact"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "wine_fact": {
-			          "Target": {
-			            "Entity": "wine_fact"
-			          }
-			        },
-			        "taster_dim": {
-			          "Target": {
-			            "Entity": "taster_dim"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "wine_fact"
-			            },
-			            "Object": {
-			              "Role": "taster_dim"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "wine_facts_have_taster_dims"
-			        },
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "taster_dim"
-			            },
-			            "Object": {
-			              "Role": "wine_fact"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "taster_dims_have_wine_facts"
 			        }
 			      ]
 			    },
