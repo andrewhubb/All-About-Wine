@@ -1,0 +1,34 @@
+table value_rating_dim
+	lineageTag: 2257dcae-1a01-4e81-a7ac-dead2af6d60d
+
+	column value_rating
+		dataType: string
+		lineageTag: d070c975-8c91-4834-b3a5-99e8f3af4a4c
+		summarizeBy: none
+		sourceColumn: value_rating
+
+		annotation SummarizationSetBy = Automatic
+
+	column value_rating_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 501e3fc4-e9d2-4f25-815a-9e79f40a8163
+		summarizeBy: none
+		sourceColumn: value_rating_key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition value_rating_dim = m
+		mode: import
+		queryGroup: dimensions
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCsjPL1IIS8wpTVXSUTJQitWJVnIsSy1KTE+FixqCRRXc8/NT4GJGYDHXiuTUnJzUvBK4uLFSbCwA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [value_rating = _t, value_rating_key = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"value_rating", type text}, {"value_rating_key", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

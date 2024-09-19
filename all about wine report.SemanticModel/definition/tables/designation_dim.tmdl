@@ -1,0 +1,46 @@
+table designation_dim
+	lineageTag: 856e2109-006a-46c2-95ee-27e88f8bfa09
+
+	column designation
+		dataType: string
+		lineageTag: ae1b2d85-741f-4c71-b204-5d8f21ec58a0
+		summarizeBy: none
+		sourceColumn: designation
+
+		annotation SummarizationSetBy = Automatic
+
+	column designation_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 56fb2d6c-3fda-4e20-a02c-66d82ad0065c
+		summarizeBy: none
+		sourceColumn: designation_key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition designation_dim = m
+		mode: import
+		queryGroup: dimensions
+		source =
+				let
+				  Source = #"winemag-data-source-development",
+				  #"Removed Other Columns" = Table.SelectColumns(Source, {"designation"}),
+				  #"Replaced Value" = Table.ReplaceValue(
+				    #"Removed Other Columns",
+				    "#NAME?",
+				    "",
+				    Replacer.ReplaceText,
+				    {"designation"}
+				  ),
+				  #"Removed Duplicates" = Table.Distinct(#"Replaced Value"),
+				  #"Sorted Rows" = Table.Sort(#"Removed Duplicates", {{"designation", Order.Ascending}}),
+				  #"Filtered Rows" = Table.SelectRows(#"Sorted Rows", each ([designation] <> "")),
+				  #"Added Index" = Table.AddIndexColumn(#"Filtered Rows", "Index", 1, 1, Int64.Type),
+				  #"Renamed Columns" = Table.RenameColumns(#"Added Index", {{"Index", "designation_key"}})
+				in
+				  #"Renamed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

@@ -1,0 +1,26 @@
+table 'z word rank'
+	lineageTag: 1c48d49a-cc27-4b55-9b77-d9805af5bfdc
+
+	column Rank
+		dataType: int64
+		formatString: 0
+		lineageTag: bbaa8286-b749-4d6b-be81-bbb800f103c6
+		summarizeBy: none
+		sourceColumn: Rank
+
+		annotation SummarizationSetBy = User
+
+	partition 'z word rank' = m
+		mode: import
+		queryGroup: dimensions
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMlSK1YlWMgKTxmDSBEyagkkzMGkOJi3ApCWYNDRQio0FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Rank = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Rank", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

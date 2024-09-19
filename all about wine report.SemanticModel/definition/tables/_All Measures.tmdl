@@ -1,0 +1,1193 @@
+table '_All Measures'
+	lineageTag: e4ea62c7-c796-4ee9-a1d3-853dbae14a99
+
+	measure 'Word Rank' =
+			
+			RANKX(
+			    ALLSELECTED(
+			        'word_summary_pqe'[Value]
+			    ),
+			    [Word Count],,
+			    DESC,
+			    Dense
+			)
+		formatString: 0
+		lineageTag: b3eb9d19-c026-4f10-ad60-778dd4eca51a
+
+	measure 'Word Count' =
+			
+			COUNT(
+			    'description_dim'[id]
+			)
+		formatString: 0
+		lineageTag: b4354eb1-3499-44c1-a74c-6dd53fefec17
+
+	measure 'Word Find' = ```
+			
+			CALCULATE(
+			    MIN(
+			        'word_summary_pqe'[Value]
+			    ),
+			    FILTER(
+			        word_summary_pqe,
+			        [Word Rank] = 
+			            SELECTEDVALUE(
+			                'z word rank'[Rank]
+			            )
+			    )
+			)
+			```
+		lineageTag: 464ae1ef-472f-46bc-b5e0-69361397d072
+
+	measure '# Wines' =
+			
+			-- Counting Unique Wines
+			DISTINCTCOUNT(
+			    wine_fact[Title-Points-Price]
+			)
+		formatString: #,0
+		displayFolder: Numbers of Things
+		lineageTag: a35c2a38-01d2-4194-bb65-93d1aa22a6e8
+
+	measure '# Tasters' =
+			
+			COUNTROWS(
+			    taster_dim
+			)
+		formatString: 0
+		displayFolder: Numbers of Things
+		lineageTag: 0832f6a2-9173-4a69-a812-22e3c3d3af19
+
+	measure '# Countries' =
+			
+			DISTINCTCOUNT(
+			    'country_dim'[country]
+			)
+		formatString: #,0
+		displayFolder: Numbers of Things
+		lineageTag: 28913f41-047a-4e74-b5e8-4555263edb06
+
+	measure '# Regions' = ```
+			
+			CALCULATE(
+			    DISTINCTCOUNT(
+			        'region_dim'[region]
+			    ),
+			    CROSSFILTER(
+			        wine_fact[region_key],
+			        region_dim[region_key],
+			        Both
+			    )
+			)        
+			```
+		formatString: #,0
+		displayFolder: Numbers of Things
+		lineageTag: 6afe6d73-845a-4ecc-99db-1bb46b5e2a45
+
+	measure '# Provinces' =
+			
+			DISTINCTCOUNT(
+			    'province_dim'[province]
+			)
+		formatString: #,0
+		displayFolder: Numbers of Things
+		lineageTag: f711a557-6536-46a1-8b2b-e4857285e068
+
+	measure 'Avg Points' =
+			
+			AVERAGE(
+			    'wine_fact'[points]
+			)
+		formatString: 0
+		displayFolder: Average
+		lineageTag: 03c817fb-fb17-4b2f-b90d-5a01625fe10c
+
+	measure '# Reviews' =
+			
+			COUNT(
+			    wine_fact[id]
+			)
+		formatString: #,0
+		displayFolder: Numbers of Things
+		lineageTag: efdaa830-9a02-451b-be92-41b024490cb8
+
+	measure 'Avg Price' =
+			
+			AVERAGE(
+			    wine_fact[price]
+			)
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: Average
+		lineageTag: 0faba30e-0989-40c5-a41e-9016106038b4
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Max Avg Price Per Country' = ```
+			
+			MAXX(
+			   SUMMARIZE(
+			        wine_fact,
+			        wine_fact[country_key], 
+			        "AvgPrice", 
+			        AVERAGE(wine_fact[price])
+			    ), 
+			    [AvgPrice]
+			)
+			```
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 9e491c2f-68d3-4260-ab04-305bbe4c34ef
+
+	measure 'Country With Max Avg Price' = ```
+			
+			VAR AvgPriceTable = 
+			    SUMMARIZE(
+			        wine_fact, 
+			        wine_fact[country_key], 
+			        "AvgPrice", 
+			        AVERAGE(wine_fact[price])
+			    )
+			VAR MaxAvgPrice = 
+			    MAXX(AvgPriceTable, [AvgPrice])
+			VAR CountryWithMaxPrice = 
+			    TOPN(
+			        1,
+			        AvgPriceTable,
+			        [AvgPrice],
+			        DESC
+			    )
+			RETURN
+			    LOOKUPVALUE(
+			        country_dim[country],
+			        country_dim[country_key], 
+			        MAXX(CountryWithMaxPrice, wine_fact[country_key])
+			    )
+			    
+			
+			```
+		displayFolder: Country
+		lineageTag: bed71daf-d74b-4e09-af51-637e1e045adf
+
+	measure 'Country With Min Avg Price' = ```
+			
+			VAR AvgPriceTable = 
+			    SUMMARIZE(
+			        wine_fact, 
+			        wine_fact[country_key], 
+			        "AvgPrice", 
+			        AVERAGE('wine_fact'[price])
+			    )
+			VAR MaxAvgPrice = 
+			    MINX(AvgPriceTable, [AvgPrice])
+			VAR CountryWithMINPrice = 
+			    TOPN(
+			        1,
+			        FILTER(
+			            AvgPriceTable,
+			            [AvgPrice]<>BLANK() 
+			        ),
+			        [AvgPrice],
+			        ASC
+			    )
+			RETURN
+			    LOOKUPVALUE(
+			        country_dim[country],
+			        country_dim[country_key], 
+			        MINX(CountryWithMINPrice, wine_fact[country_key])
+			    )
+			    
+			
+			```
+		displayFolder: Country
+		lineageTag: ad8cdceb-36c2-4468-8e3b-4e2701279cc0
+
+	measure 'Min Avg Price Per Country' = ```
+			
+			MINX(
+			   SUMMARIZE(
+			        wine_fact,
+			        wine_fact[country_key], 
+			        "AvgPrice", 
+			        AVERAGE(wine_fact[price])
+			    ), 
+			    [AvgPrice]
+			)
+			```
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 69b5d79a-90d9-4a88-95fe-da5fbbf76bc0
+
+	measure 'Country With Max Median Price' = ```
+			
+			VAR MedianPriceTable = 
+			    SUMMARIZE(
+			        wine_fact, 
+			        wine_fact[country_key], 
+			        "MedianPrice", 
+			        MEDIAN(wine_fact[price])
+			    )
+			VAR MaxAvgPrice = 
+			    MEDIANX(MedianPriceTable, [MedianPrice])
+			VAR CountryWithMaxPrice = 
+			    TOPN(
+			        1,
+			        MedianPriceTable,
+			        [MedianPrice],
+			        DESC
+			    )
+			RETURN
+			    LOOKUPVALUE(
+			        country_dim[country],
+			        country_dim[country_key], 
+			        MEDIANX(CountryWithMaxPrice, wine_fact[country_key])
+			    )
+			    
+			
+			```
+		displayFolder: Country
+		lineageTag: c2ce1883-6d0c-4a93-86d5-bc5bfc96346d
+
+	measure 'Max Median Price Per Country' = ```
+			
+			MEDIANX(
+			   SUMMARIZE(
+			        wine_fact,
+			        wine_fact[country_key], 
+			        "MedianPrice", 
+			        MEDIAN(wine_fact[price])
+			    ), 
+			    [MedianPrice]
+			)
+			```
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: b4fc718c-f242-4973-97f3-54e4eb195d32
+
+	measure 'Country With Max Avg Points' = ```
+			
+			VAR MaxPointsTable = 
+			    SUMMARIZE(
+			        wine_fact, 
+			        wine_fact[country_key], 
+			        "MaxPoints", 
+			        MAXX(
+			            wine_fact,
+			            AVERAGE(
+			                wine_fact[points]
+			            )
+			        )
+			    )
+			VAR MaxAvgPrice = 
+			    MAXX(MaxPointsTable, [MaxPoints])
+			VAR CountryWithMaxPoints = 
+			    TOPN(
+			        1,
+			        MaxPointsTable,
+			        [MaxPoints],
+			        DESC
+			    )
+			RETURN
+			    LOOKUPVALUE(
+			        country_dim[country],
+			        country_dim[country_key], 
+			        MAXX(CountryWithMaxPoints, wine_fact[country_key])
+			    )
+			    
+			
+			```
+		displayFolder: Country
+		lineageTag: 64cd9f09-a03e-4186-bd69-44426057f22e
+
+	measure 'Top 10 Highest Reviewed Wines'
+		lineageTag: 12cd9b8b-4ad3-4e1a-bd8d-1551bb236e81
+
+	measure 'Total Points' =
+			
+			SUM(
+			    wine_fact[points]
+			)
+		formatString: #,0
+		lineageTag: 426f1aab-d4c4-46dd-8ebc-d439a8ff0c17
+
+	measure 'Country with Most Wines' =
+			
+			TOPN(
+			    1,
+			    VALUES(country_dim[country]),
+			    [# Wines],
+			    DESC
+			)
+		displayFolder: Country
+		lineageTag: 34f136cb-a02c-4d0f-8abd-e648fe9c5649
+
+	measure 'Country with Most Reviews' =
+			
+			TOPN(
+			    1,
+			    VALUES(country_dim[country]),
+			    [# Reviews],
+			    DESC
+			)
+		displayFolder: Country
+		lineageTag: 4a05aea0-691c-48a2-b17f-37cb94bb8966
+
+	measure 'Max Score' = ```
+			
+			MAX(    
+			        'wine_fact'[points]
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 4d786631-7b30-484a-9817-f28a935f804e
+
+	measure 'Min Points' = ```
+			
+			MIN(    
+			        'wine_fact'[points]
+			)
+			
+			```
+		formatString: 0
+		lineageTag: fa866e94-b871-4694-b5a8-2955c27bf668
+
+	measure '# Wine Varieties' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(
+			        variety_dim[variety_key]
+			    ),
+			    CROSSFILTER(
+			        wine_fact[variety_key],
+			        variety_dim[variety_key],
+			        Both
+			    )
+			)
+		formatString: 0
+		displayFolder: Numbers of Things
+		lineageTag: f7043f7f-e3c4-47cf-b5cc-322342455b5f
+
+	measure 'Taster Name' =
+			
+			CALCULATE(
+			    MIN(
+			        taster_dim[taster_name]
+			    ),
+			    CROSSFILTER(
+			        wine_fact[taster_key],
+			        taster_dim[taster_key],
+			        Both
+			    )
+			)
+		lineageTag: 9f200697-8b82-4c43-92bd-6ce6e368a489
+
+	measure 'Taster Twitter Handle' =
+			
+			CALCULATE(
+			    MIN(
+			        taster_dim[taster_twitter_handle]
+			    ),
+			    CROSSFILTER(
+			        wine_fact[taster_key],
+			        taster_dim[taster_key],
+			        Both
+			    )
+			)
+		lineageTag: 80e02b67-89b3-404c-bfe9-884038301f51
+
+	measure 'Wine Variety' =
+			
+			CALCULATE(
+			    MIN(
+			        variety_dim[variety]
+			    ),
+			    CROSSFILTER(
+			        wine_fact[variety_key],
+			        variety_dim[variety_key],
+			        Both
+			    )
+			)
+		lineageTag: 96d7204f-a5c5-4aee-be33-bc7cbd72ae8f
+
+	measure '# Wineries' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(
+			        winery_dim[winery]
+			    ),
+			    CROSSFILTER(
+			        wine_fact[winery_key],
+			        winery_dim[winery_key],
+			        Both
+			    )
+			)
+		formatString: #,0
+		displayFolder: Numbers of Things
+		lineageTag: 6e7554d6-aec3-46c5-8e3c-87766b9978ab
+
+	measure '# Wines (Province)' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(
+			        wine_fact[title]
+			    ),
+			    CROSSFILTER(
+			        wine_fact[province_key],
+			        province_dim[province_key],
+			        Both
+			    )
+			)
+		displayFolder: Numbers of Things
+		lineageTag: 22b0bdbf-4a06-4b89-b242-062f62cad71a
+
+	measure '# Wine Rank (Province)' =
+			
+			VAR SelectedTopN = [Selected N]
+			RETURN
+			RANKX(
+			   ALLSELECTED(
+			    province_dim[province]
+			   ),
+			    [# Wines],,
+			    DESC,
+			    Dense
+			)
+		formatString: 0
+		displayFolder: Numbers of Things
+		lineageTag: 7746212f-cc25-482a-aa36-2e9943312ff1
+
+	measure 'Selected N' =
+			
+			IF(
+			    SELECTEDVALUE(
+			        'Top N'[Top N]
+			    ) = BLANK(),
+			    10,
+			    SELECTEDVALUE(
+			        'Top N'[Top N]
+			    )
+			)
+		formatString: 0
+		displayFolder: Selection for Filters
+		lineageTag: 128a299d-7009-4d1e-a16c-34d8a6ea0e7f
+
+	measure 'Select Wine Rank (Province)' = ```
+			
+			IF (     
+			    [# Wine Rank (Province)] <= [Selected N],    
+			    1,
+			    0
+			)
+			```
+		formatString: 0
+		displayFolder: Selection for Filters
+		lineageTag: 619748d2-9ab6-4d4f-9108-651e0697896f
+
+	measure '# Wine Rank (Country)' =
+			
+			VAR SelectedTopN = [Selected N]
+			RETURN
+			RANKX(
+			   ALLSELECTED(
+			    country_dim[country]
+			   ),
+			    [# Wines],,
+			    DESC,
+			    Dense
+			)
+		formatString: 0
+		displayFolder: Numbers of Things
+		lineageTag: 02dc83e8-cca5-4331-8441-61546cfa83bf
+
+	measure 'Select Wine Rank (Country)' = ```
+			
+			IF (     
+			    [# Wine Rank (Country)] <= [Selected N],    
+			    1,
+			    0
+			)
+			```
+		formatString: 0
+		displayFolder: Selection for Filters
+		lineageTag: 31cdffc3-f667-4d25-94ff-e2068de01f8a
+
+	measure '# Wine Variety Rank (Province)' =
+			
+			VAR SelectedTopN = [Selected N]
+			RETURN
+			RANKX(
+			   ALLSELECTED(
+			    province_dim[province]
+			   ),
+			    [# Wine Varieties],,
+			    DESC,
+			    Dense
+			)
+		formatString: 0
+		displayFolder: Numbers of Things
+		lineageTag: bde83179-52eb-4f58-b92a-a048708272d4
+
+	measure 'Select Wine Variety Rank (Province)' = ```
+			
+			IF (     
+			    [# Wine Variety Rank (Province)] <= [Selected N],    
+			    1,
+			    0
+			)
+			```
+		formatString: 0
+		displayFolder: Selection for Filters
+		lineageTag: a418ee4d-7468-435d-a078-1f93c2cd0dcc
+
+	measure '# Winery Rank (Province)' =
+			
+			VAR SelectedTopN = [Selected N]
+			RETURN
+			RANKX(
+			   ALLSELECTED(
+			    province_dim[province]
+			   ),
+			    [# Wineries],,
+			    DESC,
+			    Dense
+			)
+		formatString: 0
+		displayFolder: Numbers of Things
+		lineageTag: 18871882-a0d9-4b86-bae8-c0d7c4f5043d
+
+	measure 'Select Winery Rank (Province)' = ```
+			
+			IF (     
+			    [# Winery Rank (Province)] <= [Selected N],    
+			    1,
+			    0
+			)
+			```
+		formatString: 0
+		displayFolder: Selection for Filters
+		lineageTag: 94ad7e05-ca03-4a04-b306-07f1ab537cbb
+
+	measure 'Wine Avg Price Rank (Province)' =
+			
+			VAR SelectedTopN = [Selected N]
+			RETURN
+			RANKX(
+			   ALLSELECTED(
+			    province_dim[province]
+			   ),
+			    [Avg Price],,
+			    DESC,
+			    Dense
+			)
+		formatString: 0
+		lineageTag: 5cf6cf1e-a675-4c3c-9dac-434f16082794
+
+	measure 'Select Wine Avg Price Rank (Province)' = ```
+			
+			IF (     
+			    [Wine Avg Price Rank (Province)] <= [Selected N],    
+			    1,
+			    0
+			)
+			```
+		formatString: 0
+		displayFolder: Selection for Filters
+		lineageTag: fa6e3f13-33eb-438d-97d2-f8cec31f3f57
+
+	measure '# Wine Chart Data Label' =
+			
+			IF(
+			    [# Wines] >= 100,
+			    [# Wines],
+			    BLANK()
+			)
+		formatString: #,0
+		displayFolder: Numbers of Things
+		lineageTag: d70d0760-c01a-4e0b-937e-be1c302f834f
+
+	measure 'Oldest Wine' =
+			
+			CALCULATE(
+			    MIN(
+			        wine_fact[title]
+			    ),
+			    wine_fact[year] = MIN(
+			        wine_fact[year]
+			    )
+			)
+		displayFolder: Oldest Wine
+		lineageTag: 9914dcdf-39ed-4fcb-a0d5-12c3a655734f
+
+	measure 'Oldest Wine Variety' =
+			
+			VAR OldestWine = [Oldest Wine]
+			RETURN
+			    CALCULATE(
+			        MIN(
+			            variety_dim[variety]
+			        ),
+			        wine_fact[title] = OldestWine,
+			        CROSSFILTER(
+			            wine_fact[variety_key],
+			            variety_dim[variety_key],
+			            Both
+			        )
+			    )
+		displayFolder: Oldest Wine
+		lineageTag: 61a6016e-6aa9-4b42-be1d-ceddc69ce485
+
+	measure 'Oldest Wine Review' = ```
+			
+			VAR OldestWine = [Oldest Wine]
+			RETURN
+			    CALCULATE(
+			        MIN(
+			            wine_fact[description]
+			        ),
+			        wine_fact[title] = OldestWine
+			    )
+			
+			```
+		displayFolder: Oldest Wine
+		lineageTag: 08769a7f-6228-41a3-8fd8-b73bdbafea69
+
+	measure 'Oldest Wine Taster Name' = ```
+			
+			VAR OldestWine = [Oldest Wine]
+			RETURN
+			    CALCULATE(
+			        MIN(
+			            taster_dim[taster_name]
+			        ),
+			        wine_fact[title] = OldestWine,        
+			        CROSSFILTER(
+			            wine_fact[taster_key],
+			            taster_dim[taster_key],
+			            Both
+			        )
+			    )
+			```
+		displayFolder: Oldest Wine
+		lineageTag: 83d8735f-cd9a-4443-86d9-b7560cc9c766
+
+	measure 'Oldest Wine Taster Twitter Handle' =
+			
+			VAR OldestWine = [Oldest Wine]
+			RETURN
+			    CALCULATE(
+			        MIN(
+			            taster_dim[taster_twitter_handle]
+			        ),
+			        wine_fact[title] = OldestWine,
+			        CROSSFILTER(
+			            wine_fact[taster_key],
+			            taster_dim[taster_key],
+			            Both
+			        )
+			    )
+		displayFolder: Oldest Wine
+		lineageTag: 6664534f-8b9d-4b97-b9e8-8f2454304bda
+
+	measure 'Most Expensive Wine Name' = ```
+			
+			TOPN(
+			    1,
+			    VALUES(wine_fact[title]),
+			    [Avg Price],
+			    DESC
+			)
+			
+			```
+		displayFolder: Most Expensive Wine
+		lineageTag: 117b216d-499d-486d-9dfb-a2fe7503f62d
+
+	measure 'Most Expensive Wine Price' =
+			
+			MAX(
+			    wine_fact[price]
+			)
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: Most Expensive Wine
+		lineageTag: 2d6ccf27-0008-4977-b7da-cdaa7383af54
+
+	measure 'Taster Name Max Reviews' = ```
+			
+			/*
+			This uses Summarize to return a filtered
+			single column table. I could not use values 
+			as I needed to remove blank taster names from the list
+			*/
+			TOPN(
+			    1,
+			    SUMMARIZE(
+			        CALCULATETABLE(
+			            taster_dim,
+			            taster_dim[taster_name] <> BLANK()
+			        ),
+			        taster_dim[taster_name]
+			    ),
+			    [# Reviews],
+			    DESC
+			)
+			```
+		lineageTag: d6056f49-9bd4-4a23-a692-8381836a4ddb
+
+	measure 'Taster Most # Reviews' = ```
+			
+			/*
+			This uses Summarize to return a filtered
+			single column table. I could not use values 
+			as I needed to remove blank taster names from the list
+			*/
+			VAR TasterMostReviews = [Taster Name Max Reviews]
+			RETURN
+			    CALCULATE(
+			        [# Reviews],        
+			        FILTER(
+			            taster_dim,
+			            taster_dim[taster_name] =TasterMostReviews
+			        )
+			    )     
+			```
+		formatString: #,0
+		lineageTag: 102ed467-ecd9-4f32-a4a2-c0c98926d1cd
+
+	measure 'Wine Age' = ```
+			
+			DATEDIFF(    
+			    DATE(
+			        MIN(
+			            wine_fact[year]
+			        ),
+			        1,
+			        1
+			    ),
+			    TODAY(),
+			    YEAR
+			)
+			```
+		formatString: 0
+		lineageTag: 8d196615-ac68-4ea9-8aca-4045b6b57fd4
+
+	measure Year =
+			
+			MIN(
+			    wine_fact[year]
+			)
+		formatString: 0
+		lineageTag: 066bef25-c142-4204-9303-9781ee22c7fa
+
+	measure '# Wine Total (Only Show Total)' =
+			
+			IF(
+			    HASONEVALUE(
+			        wine_fact[title]
+			    ),
+			    BLANK(),
+			    DISTINCTCOUNT(
+			        wine_fact[title]
+			    )
+			)
+		formatString: #,0
+		displayFolder: Numbers of Things
+		lineageTag: ca2bcc13-1760-4c4d-aa84-3a3f023bc2e6
+
+	measure 'Most Expensive Wine Year' = ```
+			
+			VAR WineName = [Most Expensive Wine Name]
+			RETURN
+			    CALCULATE(
+			        MIN(
+			            wine_fact[year]
+			        ),
+			        wine_fact[title] = WineName
+			    )
+			
+			```
+		formatString: 0
+		displayFolder: Most Expensive Wine
+		lineageTag: 393067da-2d5d-4399-a576-07583b5cb7d2
+
+	measure 'Most Expensive Wine Review' =
+			
+			TOPN(
+			    1,
+			    VALUES(wine_fact[description]),
+			    [Avg Price],
+			    DESC
+			)
+		displayFolder: Most Expensive Wine
+		lineageTag: 0b2cdb2a-e3a4-4d14-91ee-09f3833ce263
+
+	measure 'Most Expensive Wine Variety' =
+			
+			VAR WineName = [Most Expensive Wine Name]
+			RETURN
+			    CALCULATE(
+			        MIN(
+			            variety_dim[variety]
+			        ),
+			        wine_fact[title] = WineName,
+			        CROSSFILTER(
+			            wine_fact[variety_key],
+			            variety_dim[variety_key],
+			            Both
+			        )
+			    )
+		displayFolder: Most Expensive Wine
+		lineageTag: 320d81d1-0bb4-4986-a6fd-60be9bd92305
+
+	measure 'Most Expensive Wine Taster Name' =
+			
+			VAR WineName = [Most Expensive Wine Name]
+			RETURN
+			    CALCULATE(
+			        MIN(
+			            taster_dim[taster_name]
+			        ),
+			        wine_fact[title] = WineName,
+			        CROSSFILTER(
+			            wine_fact[taster_key],
+			            taster_dim[taster_key],
+			            Both
+			        )
+			    )
+		displayFolder: Most Expensive Wine
+		lineageTag: fece56e4-38b0-4bad-a1e6-249b8fddd1a0
+
+	measure 'Most Expensive Wine Twitter' =
+			
+			VAR WineName = [Most Expensive Wine Name]
+			RETURN
+			    CALCULATE(
+			        MIN(
+			            taster_dim[taster_twitter_handle]
+			        ),
+			        wine_fact[title] = WineName,
+			        CROSSFILTER(
+			            wine_fact[taster_key],
+			            taster_dim[taster_key],
+			            Both
+			        )
+			    )
+		displayFolder: Most Expensive Wine
+		lineageTag: 40614c99-5a92-4ebf-a101-973ce3f7cac9
+
+	measure 'Most Expensive Wine Points' = ```
+			
+			VAR WineName = [Most Expensive Wine Name]
+			RETURN
+			    CALCULATE(
+			        MIN(
+			            wine_fact[points]
+			        ),
+			        wine_fact[title] = WineName
+			    )
+			
+			```
+		formatString: 0
+		displayFolder: Most Expensive Wine
+		lineageTag: d767b674-e04d-4aea-94a1-cf39bf4e01ee
+
+	measure 'Oldest Wine Price' = ```
+			
+			    MIN(
+			        wine_fact[price]
+			    )
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: Oldest Wine
+		lineageTag: 1966102e-0dea-45d7-a2e0-92764a6a18d2
+
+	measure '# Wine Review Rank (Country)' =
+			
+			VAR SelectedTopN = [Selected N]
+			RETURN
+			RANKX(
+			   ALLSELECTED(
+			    country_dim[country]
+			   ),
+			    [# Reviews],,
+			    DESC,
+			    Dense
+			)
+		formatString: 0
+		displayFolder: Numbers of Things
+		lineageTag: 3d08ac9b-1e31-49ce-a327-c2c53119b37b
+
+	measure 'Select Wine Review Rank (Country)' = ```
+			
+			IF (     
+			    [# Wine Review Rank (Country)] <= [Selected N],    
+			    1,
+			    0
+			)
+			```
+		formatString: 0
+		displayFolder: Selection for Filters
+		lineageTag: d1309681-6743-4202-97b2-d62f5e09ddef
+
+	measure '# Winery Rank (Country)' =
+			
+			VAR SelectedTopN = [Selected N]
+			RETURN
+			RANKX(
+			   ALLSELECTED(
+			    country_dim[country]
+			   ),
+			    [# Wineries],,
+			    DESC,
+			    Dense
+			)
+		formatString: 0
+		displayFolder: Numbers of Things
+		lineageTag: da00843a-85a8-44c0-a6f8-9a410e7b3c23
+
+	measure 'Select Winery Rank (Country)' = ```
+			
+			IF (     
+			    [# Winery Rank (Country)] <= [Selected N],    
+			    1,
+			    0
+			)
+			```
+		formatString: 0
+		displayFolder: Selection for Filters
+		lineageTag: 7dabbc3d-26b1-46dc-af64-f42f1955e731
+
+	measure 'Avg Price Rank (Country)' =
+			
+			VAR SelectedTopN = [Selected N]
+			RETURN
+			RANKX(
+			   ALLSELECTED(
+			    country_dim[country]
+			   ),
+			    [Avg Price],,
+			    DESC,
+			    Dense
+			)
+		formatString: 0
+		displayFolder: Average
+		lineageTag: 142d30c1-3bcc-4410-b14a-3bcdbca62c36
+
+	measure 'Select Avg Price Rank (Country)' = ```
+			
+			IF (     
+			    [Avg Price Rank (Country)] <= [Selected N],    
+			    1,
+			    0
+			)
+			```
+		formatString: 0
+		displayFolder: Selection for Filters
+		lineageTag: 3f6efdc7-e12d-46a3-9961-d39809e5a348
+
+	measure 'Avg Points Rank (Country)' =
+			
+			VAR SelectedTopN = [Selected N]
+			RETURN
+			RANKX(
+			   ALLSELECTED(
+			    country_dim[country]
+			   ),
+			    [Avg Points],,
+			    DESC,
+			    Dense
+			)
+		formatString: 0
+		displayFolder: Average
+		lineageTag: 8fd5d6ec-e0fb-4dbc-9967-e1ddacedb715
+
+	measure 'Select Avg Points Rank (Country)' = ```
+			
+			IF (     
+			    [Avg Points Rank (Country)] <= [Selected N],    
+			    1,
+			    0
+			)
+			```
+		formatString: 0
+		displayFolder: Selection for Filters
+		lineageTag: 2aaabc4a-2d16-4589-810a-38f46eb44f72
+
+	measure 'Median Price' =
+			
+			MEDIAN(
+			    wine_fact[price]
+			)
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 9b84e565-ec88-4665-bf17-8c9dcb21f211
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Median Price Rank (Country)' =
+			
+			VAR SelectedTopN = [Selected N]
+			RETURN
+			RANKX(
+			   ALLSELECTED(
+			    country_dim[country]
+			   ),
+			    [Median Price],,
+			    DESC,
+			    Dense
+			)
+		formatString: 0
+		lineageTag: 81156676-dbad-4069-9c02-dc1c42cf3350
+
+	measure 'Winery Name' =
+			
+			CALCULATE(
+			    MIN(
+			        winery_dim[winery]
+			    ),
+			    CROSSFILTER(
+			        wine_fact[winery_key],
+			        winery_dim[winery_key],
+			        Both
+			    )
+			)
+		lineageTag: 6dfbf9e6-9676-4981-9101-0319d4f9915e
+
+	measure '# Wine Variety Rank (Variety)' =
+			
+			VAR SelectedTopN = [Selected N]
+			RETURN
+			RANKX(
+			   ALLSELECTED(
+			    variety_dim[variety]
+			   ),
+			    [# Wines],,
+			    DESC,
+			    Dense
+			)
+		formatString: 0
+		displayFolder: Numbers of Things
+		lineageTag: d72c7f57-d5cb-45c9-aff6-8bc7449889cf
+
+	measure 'Select Wine Variety Rank (Variety)' = ```
+			
+			IF (     
+			    [# Wine Variety Rank (Variety)] <= [Selected N],    
+			    1,
+			    0
+			)
+			```
+		formatString: 0
+		displayFolder: Selection for Filters
+		lineageTag: 6b8a5557-6dc4-4b6e-81ce-f1dac6bff093
+
+	measure 'Filtered Variety' =
+			
+			IF(
+			    ISFILTERED(
+			        variety_dim[variety]
+			    ),
+			    SELECTEDVALUE(
+			        variety_dim[variety]
+			    ),
+			    "All"
+			)
+		lineageTag: c15d6045-ccf8-4019-a381-3c82fcaa19ef
+
+	measure 'Filtered Variety Wine Info Title' =
+			
+			If(
+			    [Filtered Variety] <> "All",
+			    "Details of Provinces and Regions Where " & [Filtered Variety] & " is Produced",
+			    "Details of Provinces and Regions for " & [Filtered Variety] & " Wines"
+			)
+		lineageTag: 572c5f83-4dd5-44d6-8863-125fc39ef22f
+
+	measure 'Avg Price Point Ratio Rank (winery)' =
+			
+			VAR SelectedTopN = [Selected N]
+			RETURN
+			RANKX(
+			   ALL(
+			    winery_dim[winery]
+			   ),
+			    [Avg Price Points Ratio],,
+			    ASC,
+			    Dense
+			)
+		formatString: 0
+		displayFolder: Average
+		lineageTag: e8e50c47-d983-4159-9fb0-a85e81608171
+
+	measure 'Avg Price Points Ratio' = ```
+			
+			VAR Ratio = DIVIDE(
+			    [Avg Price],
+			    [Avg Points]    
+			)
+			RETURN
+			IF(
+			    ISBLANK(
+			        Ratio
+			    ),
+			    999999,
+			    Ratio 
+			    + (
+			        (MAX(wine_fact[year]) 
+			        / 100000000) 
+			        + (1/[# Wines]) 
+			        / 1000000000
+			    )
+			)
+			```
+		displayFolder: Average
+		lineageTag: 897a0f80-9394-449c-9529-5792a8240d32
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Select Winery Rank (Winery)' = ```
+			
+			IF (     
+			    [Avg Price Point Ratio Rank (winery)] <= [Selected N],    
+			    1,
+			    0
+			)
+			```
+		formatString: 0
+		displayFolder: Selection for Filters
+		lineageTag: c400f900-770c-4e23-a24f-b5e6a822cbf9
+
+	measure '# Wines (Description)' = ```
+			
+			CALCULATE(
+			    [# Wines],
+			    CROSSFILTER(
+			        description_dim[id],
+			        wine_fact[id],        
+			        Both
+			    )
+			)
+			
+			```
+		formatString: 0
+		displayFolder: Numbers of Things
+		lineageTag: 67fe6679-0588-4f34-a2ca-8320a9feba41
+
+	column Column1
+		dataType: string
+		isHidden
+		lineageTag: 3befd1ae-ef40-4679-ae34-ea2f447e7f53
+		summarizeBy: none
+		sourceColumn: Column1
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition '_All Measures' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

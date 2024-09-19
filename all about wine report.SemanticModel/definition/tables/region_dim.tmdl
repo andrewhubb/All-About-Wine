@@ -1,0 +1,40 @@
+table region_dim
+	lineageTag: 43549e18-2650-4bfa-88e6-f723fec6a67d
+
+	column region_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 7eb6e12f-5e6f-4605-93fd-4dfa1fdfbd9c
+		summarizeBy: none
+		sourceColumn: region_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		lineageTag: 397788ec-7019-428a-9ff7-da8f3b6baffc
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	partition region_dim = m
+		mode: import
+		queryGroup: dimensions
+		source = ```
+				let
+				  Source                     = #"winemag-data-source-development", 
+				  #"Removed Other Columns"   = Table.SelectColumns(Source, {"region"}), 
+				  #"Removed Duplicates"      = Table.Distinct(#"Removed Other Columns"), 
+				  #"Filtered Out Blank Rows" = Table.SelectRows(#"Removed Duplicates", each ([region] <> "")), 
+				  #"Sorted Rows"             = Table.Sort(#"Filtered Out Blank Rows", {{"region", Order.Ascending}}), 
+				  #"Added Index"             = Table.AddIndexColumn(#"Sorted Rows", "Index", 1, 1, Int64.Type), 
+				  #"Renamed Columns"         = Table.RenameColumns(#"Added Index", {{"Index", "region_key"}})
+				in
+				  #"Renamed Columns"
+				```
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

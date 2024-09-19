@@ -1,0 +1,49 @@
+relationship 50406c4f-6661-46fb-a4ec-a22c71193b57
+	fromColumn: wine_fact.region_key
+	toColumn: region_dim.region_key
+
+relationship 4dde288b-6e7a-4ca5-a4ef-38c94abc87cd
+	fromColumn: wine_fact.taster_key
+	toColumn: taster_dim.taster_key
+
+relationship d06775f8-dcb5-49f5-b2dd-56e968c082f4
+	crossFilteringBehavior: bothDirections
+	fromColumn: wine_fact.winery_key
+	toColumn: winery_dim.winery_key
+
+relationship 80b89fa2-a460-41df-8d74-078211dc3225
+	fromColumn: description_dim.id
+	toColumn: wine_fact.id
+
+relationship AutoDetected_66dc2410-0efe-4103-aa26-c2a27e5d23ef
+	fromColumn: wine_fact.designation_key
+	toColumn: designation_dim.designation_key
+
+relationship ea63c8b3-9cd7-3413-9d82-eca43cfbfdc3
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: word_summary_pqe.Value
+	toColumn: description_dim.Value
+
+relationship 8993f8af-771f-be20-26fb-afdcf3403108
+	fromColumn: wine_fact.country_key
+	toColumn: country_dim.country_key
+
+relationship e92baa4a-1452-ae2a-bbdd-a9911602ec21
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: country_dim.country_key
+	toColumn: 'Country Max Avg Price'.country_key
+
+relationship 9a3cf5b3-7750-9578-5a40-075a5bfcae51
+	fromColumn: wine_fact.province_key
+	toColumn: province_dim.province_key
+
+relationship AutoDetected_cd12effa-70f5-4f73-aaaa-38e157b03f35
+	fromColumn: wine_fact.value_rating_key
+	toColumn: value_rating_dim.value_rating_key
+
+relationship AutoDetected_6ce3343b-aebb-437f-ba9d-a1bfb1a38612
+	fromColumn: wine_fact.variety_key
+	toColumn: variety_dim.variety_key
+

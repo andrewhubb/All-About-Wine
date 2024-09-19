@@ -1,0 +1,37 @@
+table winery_dim
+	lineageTag: 7e12d3d0-833e-4ab1-b752-3a6e45c87d16
+
+	column winery
+		dataType: string
+		lineageTag: 1e4215c4-df13-45c8-a0e9-073cf529d4da
+		summarizeBy: none
+		sourceColumn: winery
+
+		annotation SummarizationSetBy = Automatic
+
+	column winery_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 9d4632e0-7528-4920-9e65-637f8d0fec82
+		summarizeBy: none
+		sourceColumn: winery_key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition winery_dim = m
+		mode: import
+		queryGroup: dimensions
+		source =
+				let
+				  Source                   = #"winemag-data-source-development",
+				  #"Removed Other Columns" = Table.SelectColumns(Source,{"winery"}),
+				  #"Removed Duplicates"    = Table.Distinct(#"Removed Other Columns"),
+				  #"Added Index"           = Table.AddIndexColumn(#"Removed Duplicates", "Index", 1, 1, Int64.Type),
+				  #"Renamed Columns"       = Table.RenameColumns(#"Added Index", {{"Index", "winery_key"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

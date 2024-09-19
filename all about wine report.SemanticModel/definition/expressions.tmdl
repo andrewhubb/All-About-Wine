@@ -1,0 +1,189 @@
+expression FilePath = "D:\OneDrive - DataVizExpert\Data\Wine Tasting Dataset\" meta [IsParameterQuery=true, Type="Any", IsParameterQueryRequired=true]
+	lineageTag: f2d0d453-47ea-41eb-afcb-83f068dfbbc2
+
+	annotation PBI_ResultType = Text
+
+	annotation PBI_NavigationStepName = Navigation
+
+expression winemag-data-source-development =
+		let
+		  Source = Table.FirstN(
+		    Csv.Document(
+		    File.Contents(FullPath),
+		    [Delimiter = ",", Columns = 14, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+		  ),
+		  No_Of_Rows_To_Load + 1
+		),
+		  #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+		    #"Changed Type" = Table.TransformColumnTypes(
+		    #"Promoted Headers",
+		    {
+		      {"id", Int64.Type},
+		      {"country", type text},
+		      {"description", type text},
+		      {"designation", type text},
+		      {"points", Int64.Type},
+		      {"price", Int64.Type},
+		      {"province", type text},
+		      {"region_1", type text},
+		      {"region_2", type text},
+		      {"taster_name", type text},
+		      {"taster_twitter_handle", type text},
+		      {"title", type text},
+		      {"variety", type text},
+		      {"winery", type text}
+		    }
+		  ),
+		  #"Replaced Blank Taster" = Table.ReplaceValue(
+		    #"Changed Type",
+		    "",
+		    null,
+		    Replacer.ReplaceValue,
+		    {"taster_name"}
+		  ),
+		    #"Replaced Blank Variety" = Table.ReplaceValue(
+		    #"Replaced Blank Taster",
+		    "",
+		    null,
+		    Replacer.ReplaceValue,
+		    {"variety"}
+		  ),
+		  #"Reordered Columns" = Table.ReorderColumns(
+		    #"Replaced Blank Variety",
+		    {
+		      "id",
+		      "country",
+		      "description",
+		      "designation",
+		      "points",
+		      "price",
+		      "province",
+		      "region_2",
+		      "region_1",
+		      "taster_name",
+		      "taster_twitter_handle",
+		      "title",
+		      "variety",
+		      "winery"
+		    }
+		  ),
+		  #"Renamed Columns" = Table.RenameColumns(
+		    #"Reordered Columns",
+		    {{"region_2", "region"}, {"region_1", "area"}}
+		  )
+		in
+		    #"Renamed Columns"
+	lineageTag: 62b0993d-41e7-40a6-be6f-8880e10bc1b6
+	queryGroup: 'Source Files'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression FullPath = ```
+		let
+		    FullPath = FilePath & "winemag-data-130k-v2.csv"    
+		in
+		    FullPath
+		```
+	lineageTag: 9e7edf96-1c98-4365-9ae7-2f1a4ea9276b
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression my_wine_variety_dim =
+		let
+		    Source = Csv.Document(
+		    File.Contents(FilePath & "wine variety colour (My Own Table).csv"),
+		    [Delimiter = ",", Columns = 14, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+		  ),
+		    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])
+		in
+		    #"Promoted Headers"
+	lineageTag: 5d82e1b0-d13d-43f5-83fe-b29d5377a6bf
+	queryGroup: 'Source Files'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression winemag-data-source-production =
+		let
+		    Source = Csv.Document(
+		    File.Contents(FullPath),
+		    [Delimiter = ",", Columns = 14, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+		  ),
+		  #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+		    #"Changed Type" = Table.TransformColumnTypes(
+		    #"Promoted Headers",
+		    {
+		      {"id", Int64.Type},
+		      {"country", type text},
+		      {"description", type text},
+		      {"designation", type text},
+		      {"points", Int64.Type},
+		      {"price", Int64.Type},
+		      {"province", type text},
+		      {"region_1", type text},
+		      {"region_2", type text},
+		      {"taster_name", type text},
+		      {"taster_twitter_handle", type text},
+		      {"title", type text},
+		      {"variety", type text},
+		      {"winery", type text}
+		    }
+		  ),
+		  #"Replaced Blank Taster" = Table.ReplaceValue(
+		    #"Changed Type",
+		    "",
+		    null,
+		    Replacer.ReplaceValue,
+		    {"taster_name"}
+		  ),
+		    #"Replaced Blank Variety" = Table.ReplaceValue(
+		    #"Replaced Blank Taster",
+		    "",
+		    null,
+		    Replacer.ReplaceValue,
+		    {"variety"}
+		  ),
+		  #"Reordered Columns" = Table.ReorderColumns(
+		    #"Replaced Blank Variety",
+		    {
+		      "id",
+		      "country",
+		      "description",
+		      "designation",
+		      "points",
+		      "price",
+		      "province",
+		      "region_2",
+		      "region_1",
+		      "taster_name",
+		      "taster_twitter_handle",
+		      "title",
+		      "variety",
+		      "winery"
+		    }
+		  ),
+		  #"Renamed Columns" = Table.RenameColumns(
+		    #"Reordered Columns",
+		    {{"region_2", "region"}, {"region_1", "area"}}
+		  )
+		in
+		    #"Renamed Columns"
+	lineageTag: a78debb3-5370-4a38-8417-9d58ba986e95
+	queryGroup: 'Source Files'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression No_Of_Rows_To_Load = 200000 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
+	lineageTag: e34f3e26-17a5-4b31-a395-8ec52d3eea68
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Number
+

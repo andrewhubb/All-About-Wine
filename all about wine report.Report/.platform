@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "all about wine report"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "5a498f77-f6d1-4ee0-a80a-507be524030a"
+  }
+}

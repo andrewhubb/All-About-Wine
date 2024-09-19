@@ -1,0 +1,758 @@
+table wine_fact
+	excludeFromModelRefresh
+	lineageTag: f8762d49-4913-4512-bae7-dbe5efa6438a
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 132096e1-cf25-4702-9d5b-01162d3321a4
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column country_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 84205019-a0a5-4aa7-a3fa-dabae44e3218
+		summarizeBy: none
+		sourceColumn: country_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column description
+		dataType: string
+		lineageTag: 939a583e-07e0-423a-9e69-00cb0d7fd6cb
+		summarizeBy: none
+		sourceColumn: description
+
+		annotation SummarizationSetBy = Automatic
+
+	column points
+		dataType: int64
+		formatString: 0
+		lineageTag: fa6b056e-06b6-4e4b-a0bb-a7d21bb33b1b
+		summarizeBy: none
+		sourceColumn: points
+
+		annotation SummarizationSetBy = User
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"wine_fact","TableItemName":"Points Group","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	column price
+		dataType: int64
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: ecfd9928-ecc1-4564-b444-aaf6c4a9db69
+		summarizeBy: none
+		sourceColumn: price
+
+		annotation SummarizationSetBy = User
+
+	column region_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: fec576f8-f1b5-43a2-a800-800d07c8465d
+		summarizeBy: none
+		sourceColumn: region_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column taster_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7a3f4a3b-9351-4880-99f3-f0f4ca67169c
+		summarizeBy: none
+		sourceColumn: taster_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column title
+		dataType: string
+		lineageTag: 809d9c22-9436-4abf-ab92-43859f840526
+		summarizeBy: none
+		sourceColumn: title
+
+		annotation SummarizationSetBy = Automatic
+
+	column winery_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d49dd1a4-d35f-4dc6-8603-855fbd6f672e
+		summarizeBy: none
+		sourceColumn: winery_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Points Group' =
+			SWITCH(
+				TRUE,
+				ISBLANK('wine_fact'[points]),
+				"(Blank)",
+				'wine_fact'[points] IN {80,
+					81,
+					82},
+				"Acceptable",
+				'wine_fact'[points] IN {98,
+					99,
+					100},
+				"Classic",
+				'wine_fact'[points] IN {90,
+					91,
+					92,
+					93},
+				"Excellent",
+				'wine_fact'[points] IN {83,
+					84,
+					85,
+					86},
+				"Good",
+				'wine_fact'[points] IN {94,
+					95,
+					96,
+					97},
+				"Superb",
+				'wine_fact'[points] IN {87,
+					88,
+					89},
+				"Very Good",
+				"Other"
+			)
+		dataType: string
+		lineageTag: 2437ec0d-6e4e-4983-9494-ac1a7eb40ca9
+		summarizeBy: none
+		isDataTypeInferred
+
+		extendedProperty GroupingMetadata =
+				{
+				  "version": 0,
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "wine_fact"
+				          }
+				        },
+				        "Property": "points"
+				      }
+				    }
+				  ]
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"w","Entity":"wine_fact"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"w"}},"Property":"points"}}],"GroupItems":[{"DisplayName":"(Blank)","BlankDefaultPlaceholder":true},{"DisplayName":"Acceptable","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"w"}},"Property":"points"}}],"Values":[[{"Literal":{"Value":"80L"}}],[{"Literal":{"Value":"81L"}}],[{"Literal":{"Value":"82L"}}]]}}},{"DisplayName":"Classic","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"w"}},"Property":"points"}}],"Values":[[{"Literal":{"Value":"98L"}}],[{"Literal":{"Value":"99L"}}],[{"Literal":{"Value":"100L"}}]]}}},{"DisplayName":"Excellent","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"w"}},"Property":"points"}}],"Values":[[{"Literal":{"Value":"90L"}}],[{"Literal":{"Value":"91L"}}],[{"Literal":{"Value":"92L"}}],[{"Literal":{"Value":"93L"}}]]}}},{"DisplayName":"Good","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"w"}},"Property":"points"}}],"Values":[[{"Literal":{"Value":"83L"}}],[{"Literal":{"Value":"84L"}}],[{"Literal":{"Value":"85L"}}],[{"Literal":{"Value":"86L"}}]]}}},{"DisplayName":"Superb","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"w"}},"Property":"points"}}],"Values":[[{"Literal":{"Value":"94L"}}],[{"Literal":{"Value":"95L"}}],[{"Literal":{"Value":"96L"}}],[{"Literal":{"Value":"97L"}}]]}}},{"DisplayName":"Very Good","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"w"}},"Property":"points"}}],"Values":[[{"Literal":{"Value":"87L"}}],[{"Literal":{"Value":"88L"}}],[{"Literal":{"Value":"89L"}}]]}}},{"DisplayName":"Other"}]}
+
+		annotation SummarizationSetBy = Automatic
+
+	column province_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a846b60c-41fa-4645-90ec-0466558bff89
+		summarizeBy: none
+		sourceColumn: province_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column designation_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7b5b317c-b514-498a-a7b3-0afbfa0ed3e6
+		summarizeBy: none
+		sourceColumn: designation_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: string
+		lineageTag: 5af53373-fab7-4938-a2b5-e767e25f9bca
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column variety_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 894564fb-fe2d-451b-a234-7f3bb1f801e0
+		summarizeBy: none
+		sourceColumn: variety_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column area
+		dataType: string
+		lineageTag: 817f5cc2-b191-4e4d-9526-b25b46be618a
+		summarizeBy: none
+		sourceColumn: area
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Price to Points Ratio'
+		dataType: double
+		lineageTag: 07d9befd-f046-4f25-8b6f-4281872bac9e
+		summarizeBy: sum
+		sourceColumn: Price to Points Ratio
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column value_rating_key
+		dataType: int64
+		formatString: 0
+		lineageTag: f2ee35c7-3337-42d2-b157-23d808cfb89d
+		summarizeBy: none
+		sourceColumn: value_rating_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column Title-Points-Price
+		dataType: string
+		lineageTag: 481e9f2f-4746-41dc-8a01-01765099ba6e
+		summarizeBy: none
+		sourceColumn: Title-Points-Price
+
+		annotation SummarizationSetBy = Automatic
+
+	partition wine_fact = m
+		mode: import
+		queryGroup: 'fact tables'
+		source =
+				let
+				  Source = #"winemag-data-source-development",
+				  #"Cleaned Text" = Table.TransformColumns(Source, {{"title", Text.Clean, type text}}),
+				  #"Duplicated Column" = Table.DuplicateColumn(#"Cleaned Text", "title", "title - Copy"),
+				  #"Replaced Blank Countries" = Table.ReplaceValue(
+				    #"Duplicated Column",
+				    "",
+				    "Unknown",
+				    Replacer.ReplaceValue,
+				    {"country"}
+				  ),
+				  #"Merged Country_dim table" = Table.NestedJoin(
+				    #"Replaced Blank Countries",
+				    {"country"},
+				    country_dim,
+				    {"country"},
+				    "country_dim",
+				    JoinKind.LeftOuter
+				  ),
+				  #"Expanded country_dim" = Table.ExpandTableColumn(
+				    #"Merged Country_dim table",
+				    "country_dim",
+				    {"country_key"},
+				    {"country_key"}
+				  ),
+				  #"Merged province_dim" = Table.NestedJoin(
+				    #"Expanded country_dim",
+				    {"province"},
+				    province_dim,
+				    {"province"},
+				    "province_dim",
+				    JoinKind.LeftOuter
+				  ),
+				  #"Expanded province_dim" = Table.ExpandTableColumn(
+				    #"Merged province_dim",
+				    "province_dim",
+				    {"province_key"},
+				    {"province_key"}
+				  ),
+				  #"Removed Country & Province Columns" = Table.RemoveColumns(
+				    #"Expanded province_dim",
+				    {"country", "province"}
+				  ),
+				  #"Merged region_dim" = Table.NestedJoin(
+				    #"Removed Country & Province Columns",
+				    {"region"},
+				    region_dim,
+				    {"region"},
+				    "region_dim",
+				    JoinKind.LeftOuter
+				  ),
+				  #"Expanded region_dim" = Table.ExpandTableColumn(
+				    #"Merged region_dim",
+				    "region_dim",
+				    {"region_key"},
+				    {"region_key"}
+				  ),
+				  #"Removed region Column" = Table.RemoveColumns(#"Expanded region_dim", {"region"}),
+				  #"Merged taster_dim" = Table.NestedJoin(
+				    #"Removed region Column",
+				    {"taster_name", "taster_twitter_handle"},
+				    taster_dim,
+				    {"taster_name", "taster_twitter_handle"},
+				    "taster_dim",
+				    JoinKind.LeftOuter
+				  ),
+				  #"Expanded taster_dim" = Table.ExpandTableColumn(
+				    #"Merged taster_dim",
+				    "taster_dim",
+				    {"taster_key"},
+				    {"taster_key"}
+				  ),
+				  #"Removed taster Columns" = Table.RemoveColumns(
+				    #"Expanded taster_dim",
+				    {"taster_name", "taster_twitter_handle"}
+				  ),
+				  #"Merged winery" = Table.NestedJoin(
+				    #"Removed taster Columns",
+				    {"winery"},
+				    winery_dim,
+				    {"winery"},
+				    "winery_dim",
+				    JoinKind.LeftOuter
+				  ),
+				  #"Expanded winery_dim" = Table.ExpandTableColumn(
+				    #"Merged winery",
+				    "winery_dim",
+				    {"winery_key"},
+				    {"winery_key"}
+				  ),
+				  #"Removed winery Column" = Table.RemoveColumns(#"Expanded winery_dim", {"winery"}),
+				  #"Merged designatioon" = Table.NestedJoin(
+				    #"Removed winery Column",
+				    {"designation"},
+				    designation_dim,
+				    {"designation"},
+				    "designation_dim",
+				    JoinKind.LeftOuter
+				  ),
+				  #"Expanded designation_dim" = Table.ExpandTableColumn(
+				    #"Merged designatioon",
+				    "designation_dim",
+				    {"designation_key"},
+				    {"designation_key"}
+				  ),
+				  #"Removed designation Column" = Table.RemoveColumns(#"Expanded designation_dim", {"designation"}),
+				  #"Replaced 1000 Stories" = Table.ReplaceValue(
+				    #"Removed designation Column",
+				    "1000 Stories",
+				    "____ Stories",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced 1070 Green" = Table.ReplaceValue(
+				    #"Replaced 1000 Stories",
+				    "1070 Green",
+				    "____ Green",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced 18401 Cellars" = Table.ReplaceValue(
+				    #"Replaced 1070 Green",
+				    "18401 Cellars",
+				    "_____ Cellars",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced 1848 Winery" = Table.ReplaceValue(
+				    #"Replaced 18401 Cellars",
+				    "1848 Winery",
+				    "____ Winery",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced 1850 2 with 185 2" = Table.ReplaceValue(
+				    #"Replaced 1848 Winery",
+				    "1850 2",
+				    "185 2",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced 19212 Winemakers" = Table.ReplaceValue(
+				    #"Replaced 1850 2 with 185 2",
+				    "1912 Winemakers",
+				    "____ Winemakers",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced 3000 BC" = Table.ReplaceValue(
+				    #"Replaced 19212 Winemakers",
+				    "3000 BC",
+				    "____ BC",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Foxen 7200" = Table.ReplaceValue(
+				    #"Replaced 3000 BC",
+				    "Foxen 7200",
+				    "Foxen ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Hazlit" = Table.ReplaceValue(
+				    #"Replaced Foxen 7200",
+				    "Hazlitt 1852",
+				    "Hazlitt ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Ikal 1150" = Table.ReplaceValue(
+				    #"Replaced Hazlit",
+				    "Ikal 1150",
+				    "Ikal ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Cristobal 1492" = Table.ReplaceValue(
+				    #"Replaced Ikal 1150",
+				    "Cristobal 1492",
+				    "Cristobal ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced NV 1607" = Table.ReplaceValue(
+				    #"Replaced Cristobal 1492",
+				    "NV 1607",
+				    "NV ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Guidi 1929" = Table.ReplaceValue(
+				    #"Replaced NV 1607",
+				    "Guidi 1929",
+				    "Guidi ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Fortune 1621" = Table.ReplaceValue(
+				    #"Replaced Guidi 1929",
+				    "Fortune 1621",
+				    "Fortune ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Balfour 1503" = Table.ReplaceValue(
+				    #"Replaced Fortune 1621",
+				    "Balfour 1503",
+				    "Balfour ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Salis 1637" = Table.ReplaceValue(
+				    #"Replaced Balfour 1503",
+				    "Salis 1637",
+				    "Salis ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced 1752 Signature" = Table.ReplaceValue(
+				    #"Replaced Salis 1637",
+				    "1752 Signature",
+				    "____ Signature",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced 1789 Wines" = Table.ReplaceValue(
+				    #"Replaced 1752 Signature",
+				    "1789 Wines",
+				    "____ Wines",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Cuvèe 1821" = Table.ReplaceValue(
+				    #"Replaced 1789 Wines",
+				    "Cuvèe 1821",
+				    "Cuvèe ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Cuvée 1821" = Table.ReplaceValue(
+				    #"Replaced Cuvèe 1821",
+				    "Cuvée 1821",
+				    "Cuvée ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Sherry 1827" = Table.ReplaceValue(
+				    #"Replaced Cuvée 1821",
+				    "Sherry 1827",
+				    "Sherry ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced 1827 Sweet" = Table.ReplaceValue(
+				    #"Replaced Sherry 1827",
+				    "1827 Sweet",
+				    "____ Sweet",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Ippolito 1845" = Table.ReplaceValue(
+				    #"Replaced 1827 Sweet",
+				    "Ippolito 1845",
+				    "Ippolito ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Solera 1847" = Table.ReplaceValue(
+				    #"Replaced Ippolito 1845",
+				    "Solera 1847",
+				    "Solera ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Estate 1856" = Table.ReplaceValue(
+				    #"Replaced Solera 1847",
+				    "Estate 1856",
+				    "Estate ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Sarno 1860" = Table.ReplaceValue(
+				    #"Replaced Estate 1856",
+				    "Sarno 1860",
+				    "Sarno ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Piano 1868" = Table.ReplaceValue(
+				    #"Replaced Sarno 1860",
+				    "Piano 1868",
+				    "Piano ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced NV 1868" = Table.ReplaceValue(
+				    #"Replaced Piano 1868",
+				    "NV 1868",
+				    "NV ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Dogliotti 1870" = Table.ReplaceValue(
+				    #"Replaced NV 1868",
+				    "Dogliotti 1870",
+				    "Dogliotti ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Prospect 1870" = Table.ReplaceValue(
+				    #"Replaced Dogliotti 1870",
+				    "Prospect 1870",
+				    "Prospect ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Barcelona 1872" = Table.ReplaceValue(
+				    #"Prospect 1870",
+				    "Barcelona 1872",
+				    "Barcelona ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Arini 1875" = Table.ReplaceValue(
+				    #"Replaced Barcelona 1872",
+				    "Arini 1875",
+				    "Arini ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Vinai 1877" = Table.ReplaceValue(
+				    #"Replaced Arini 1875",
+				    "Vinai 1877",
+				    "Vinai ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Bagrationi 1882" = Table.ReplaceValue(
+				    #"Replaced Vinai 1877",
+				    "Bagrationi 1882",
+				    "Bagrationi ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Masia 1882" = Table.ReplaceValue(
+				    #"Replaced Bagrationi 1882",
+				    "Masia 1882",
+				    "Masia ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Cavas Hill NV 1887" = Table.ReplaceValue(
+				    #"Replaced Masia 1882",
+				    "Cavas Hill NV 1887",
+				    "Cavas Hill NV ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Bodegas 1898" = Table.ReplaceValue(
+				    #"Replaced Cavas Hill NV 1887",
+				    "Bodegas 1898",
+				    "Bodegas NV ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Olimpia 1898" = Table.ReplaceValue(
+				    #"Replaced Bodegas 1898",
+				    "Olimpia 1898",
+				    "Olimpia ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Arthur Metz NV 1904" = Table.ReplaceValue(
+				    #"Replaced Olimpia 1898",
+				    "Arthur Metz NV 1904",
+				    "Arthur Metz NV ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Curatolo Arini 1875" = Table.ReplaceValue(
+				    #"Replaced Arthur Metz NV 1904",
+				    "Curatolo Arini 1875",
+				    "Curatolo Arini ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Antichi Vinai 1877" = Table.ReplaceValue(
+				    #"Replaced Curatolo Arini 1875",
+				    "Antichi Vinai 1877",
+				    "Antichi Vinai ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced MM Masia 1882" = Table.ReplaceValue(
+				    #"Replaced Antichi Vinai 1877",
+				    "MM Masia 1882",
+				    "MM Masia ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced L'Arboc NV 1919" = Table.ReplaceValue(
+				    #"Replaced MM Masia 1882",
+				    "L'Arboc NV 1919",
+				    "L'Arboc NV ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Alvear NV Solera 1927" = Table.ReplaceValue(
+				    #"Replaced L'Arboc NV 1919",
+				    "Alvear NV Solera 1927",
+				    "Alvear NV Solera ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Replaced Poderi dal Nespoli 1929" = Table.ReplaceValue(
+				    #"Replaced Alvear NV Solera 1927",
+				    "Poderi dal Nespoli 1929",
+				    "Poderi dal Nespoli ____",
+				    Replacer.ReplaceText,
+				    {"title"}
+				  ),
+				  #"Inserted Year as Kept Characters" = Table.AddColumn(
+				    #"Replaced Poderi dal Nespoli 1929",
+				    "Kept Characters",
+				    each
+				      let
+				
+				        // Get the length of the text in the title column
+				        textLength = Text.Length([title]),
+				        // Define a function to check for a sequence of four digits
+				        findYear = (text, start) =>
+				          if start + 3 < textLength then
+				            let
+				              potentialYear = Text.Middle(text, start, 4),
+				              isDigits      = Text.Select(potentialYear, {"0" .. "9"}) = potentialYear
+				            in
+				              if isDigits then potentialYear else @findYear(text, start + 1)
+				          else
+				            null
+				      in
+				        findYear([title], 0),
+				    Int64.Type
+				  ),
+				  #"Renamed Kept Characters Column to Year" = Table.RenameColumns(
+				    #"Inserted Year as Kept Characters",
+				    {{"Kept Characters", "year"}}
+				  ),
+				  #"Removed title - Copy Column" = Table.RemoveColumns(
+				    #"Renamed Kept Characters Column to Year",
+				    {"title - Copy"}
+				  ),
+				  #"Trimmed Variety Text" = Table.TransformColumns(
+				    #"Removed title - Copy Column",
+				    {{"variety", Text.Trim, type text}}
+				  ),
+				  #"Merged variety_dim Query" = Table.NestedJoin(
+				    #"Trimmed Variety Text",
+				    {"variety"},
+				    variety_dim,
+				    {"Variety"},
+				    "variety_dim",
+				    JoinKind.LeftOuter
+				  ),
+				  #"Expanded variety_dim" = Table.ExpandTableColumn(
+				    #"Merged variety_dim Query",
+				    "variety_dim",
+				    {"variety_key"},
+				    {"variety_key"}
+				  ),
+				  #"Removed Variety Column" = Table.RemoveColumns(#"Expanded variety_dim", {"variety"}),
+				  #"Reordered Columns" = Table.ReorderColumns(
+				    #"Removed Variety Column",
+				    {
+				      "id",
+				      "description",
+				      "points",
+				      "price",
+				      "country_key",
+				      "province_key",
+				      "region_key",
+				      "winery_key",
+				      "variety_key",
+				      "designation_key",
+				      "taster_key",
+				      "title",
+				      "year"
+				    }
+				  ),
+				  #"Added Price Points Ratio" = Table.AddColumn(
+				    #"Reordered Columns",
+				    "Price to Points Ratio",
+				    each [price] / [points]
+				  ),
+				  #"Changed Price Points Ratio & Year Types" = Table.TransformColumnTypes(#"Added Price Points Ratio",{{"Price to Points Ratio", type number}, {"year", type text}}),
+				  #"Added Value Rating Key Column" = Table.AddColumn(
+				    #"Changed Price Points Ratio & Year Types",
+				    "value_rating_key",
+				    each
+				      if [Price to Points Ratio] = null then
+				        null
+				      else if [Price to Points Ratio] <= 0.05 then
+				        3
+				      else if [Price to Points Ratio] <= 0.1 then
+				        2
+				      else if [Price to Points Ratio] <= 0.15 then
+				        1
+				      else
+				        0,
+				    Int64.Type
+				  ),
+				    #"Added Custom" = Table.AddColumn(#"Added Value Rating Key Column", "Title-Points-Price", each [title] & ":" & Text.From([points]) & ":" &Text.From([price]), type text)
+				in
+				    #"Added Custom"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

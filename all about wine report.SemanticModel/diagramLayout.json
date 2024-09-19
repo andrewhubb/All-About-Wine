@@ -1,0 +1,216 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 104.71025318569636,
+        "y": 1264.5862537937146
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1275.5717134718388,
+            "y": 1870.1179819647664
+          },
+          "nodeIndex": "region_dim",
+          "nodeLineageTag": "43549e18-2650-4bfa-88e6-f723fec6a67d",
+          "size": {
+            "height": 154.14943993760789,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 434.8772301803146,
+            "y": 1867.7923285586421
+          },
+          "nodeIndex": "taster_dim",
+          "nodeLineageTag": "756895b3-922a-4fb0-be96-d4dbec637327",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 1512.734826206638,
+            "y": 2204.1180049310178
+          },
+          "nodeIndex": "wine_fact",
+          "nodeLineageTag": "f8762d49-4913-4512-bae7-dbe5efa6438a",
+          "size": {
+            "height": 176.48256084229388,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 51,
+            "y": 1872.0283709202686
+          },
+          "nodeIndex": "winery_dim",
+          "nodeLineageTag": "7e12d3d0-833e-4ab1-b752-3a6e45c87d16",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 2152.9017379131865,
+            "y": 2204.3952039922842
+          },
+          "nodeIndex": "z word rank",
+          "nodeLineageTag": "1c48d49a-cc27-4b55-9b77-d9805af5bfdc",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 2427.7790715064866,
+            "y": 2205.3197930565152
+          },
+          "nodeIndex": "_All Measures",
+          "nodeLineageTag": "e4ea62c7-c796-4ee9-a1d3-853dbae14a99",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 1604.1464334406428,
+            "y": 1878.7923285586421
+          },
+          "nodeIndex": "description_dim",
+          "nodeLineageTag": "827287f8-1991-4f5a-99a0-315905b87798",
+          "size": {
+            "height": 149.34869318775191,
+            "width": 234
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 711.1464334406428,
+            "y": 1867.7923285586421
+          },
+          "nodeIndex": "province_dim",
+          "nodeLineageTag": "89a3a8d9-4c5e-4a71-8e43-30444c3b1141",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 12
+        },
+        {
+          "location": {
+            "x": 1887.9405008234553,
+            "y": 1877.3952039922842
+          },
+          "nodeIndex": "country_dim",
+          "nodeLineageTag": "e70c34cd-6194-4515-8de7-719ba38be0f5",
+          "size": {
+            "height": 150.87359984401974,
+            "width": 234
+          },
+          "zIndex": 14
+        },
+        {
+          "location": {
+            "x": 2433.4913928791138,
+            "y": 1878.9045383654866
+          },
+          "nodeIndex": "designation_dim",
+          "nodeLineageTag": "856e2109-006a-46c2-95ee-27e88f8bfa09",
+          "size": {
+            "height": 152.39850650028757,
+            "width": 234
+          },
+          "zIndex": 13
+        },
+        {
+          "location": {
+            "x": 1612.1464334406428,
+            "y": 1707.7923285586421
+          },
+          "nodeIndex": "word_summary_pqe",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 1884.706386953615,
+            "y": 2206.0695505861604
+          },
+          "nodeIndex": "Country Max Avg Price",
+          "nodeLineageTag": "92ca059f-cdb3-4857-80f3-3e8695260b81",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 2166.3220096232167,
+            "y": 1878.1945505861602
+          },
+          "nodeIndex": "variety_dim",
+          "nodeLineageTag": "e851a714-b822-43f9-a6df-ae9ec692d059",
+          "size": {
+            "height": 150.87359984401974,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 2769.8743270963355,
+            "y": 2198.2784266271365
+          },
+          "nodeIndex": "Top N",
+          "nodeLineageTag": "0ac8a9d2-38b3-41e9-bda3-711ed8a3f5b6",
+          "size": {
+            "height": 159.95392043674474,
+            "width": 234
+          },
+          "zIndex": 15
+        },
+        {
+          "location": {
+            "x": 982.46272983231847,
+            "y": 1870.0657104389225
+          },
+          "nodeIndex": "value_rating_dim",
+          "nodeLineageTag": "2257dcae-1a01-4e81-a7ac-dead2af6d60d",
+          "size": {
+            "height": 151.09962662507178,
+            "width": 234
+          },
+          "zIndex": 3
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 65.577784442713167,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

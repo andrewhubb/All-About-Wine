@@ -1,0 +1,69 @@
+table variety_dim
+	lineageTag: e851a714-b822-43f9-a6df-ae9ec692d059
+
+	column variety_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 17c51209-c624-4632-9af8-3e6fc01aee84
+		summarizeBy: none
+		sourceColumn: variety_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column Variety
+		dataType: string
+		lineageTag: 59fa51c5-7b34-4172-93d8-20b0d1773c49
+		summarizeBy: none
+		sourceColumn: Variety
+
+		annotation SummarizationSetBy = Automatic
+
+	column Type
+		dataType: string
+		lineageTag: c2288edc-095d-4a5a-9cf6-58989411866b
+		summarizeBy: none
+		sourceColumn: Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Origin
+		dataType: string
+		lineageTag: 17578b73-cdd0-492e-8fca-0709d55be859
+		summarizeBy: none
+		sourceColumn: Origin
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Grape Characteristics'
+		dataType: string
+		lineageTag: b1dea422-42bf-4b9c-9ee5-42c032867d07
+		summarizeBy: none
+		sourceColumn: Grape Characteristics
+
+		annotation SummarizationSetBy = Automatic
+
+	partition variety_dim = m
+		mode: import
+		queryGroup: dimensions
+		source =
+				let
+				  Source = my_wine_variety_dim,
+				  #"Removed Columns" = Table.RemoveColumns(
+				    Source,
+				    {"", "_1", "_2", "_3", "_4", "_5", "_6", "_7", "_8", "_9"}
+				  ),
+				  #"Removed Duplicates" = Table.Distinct(#"Removed Columns"),
+				  #"Added Index" = Table.AddIndexColumn(#"Removed Duplicates", "variety_key", 1, 1, Int64.Type),
+				  #"Reordered Columns" = Table.ReorderColumns(
+				    #"Added Index",
+				    {"variety_key", "Variety", "Colour", "Origin", "Grape Characteristics"}
+				  ),
+				    #"Trimmed Text" = Table.TransformColumns(#"Reordered Columns",{{"Variety", Text.Trim, type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Trimmed Text",{{"Colour", "Type"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

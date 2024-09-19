@@ -1,0 +1,527 @@
+table description_dim
+	lineageTag: 827287f8-1991-4f5a-99a0-315905b87798
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 93ddc9e1-e34a-4ef7-9d1d-253cc9f2640c
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: string
+		lineageTag: 0d08ea63-38b7-43e1-b0aa-0a8f09d7de39
+		summarizeBy: none
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+	partition description_dim = m
+		mode: import
+		queryGroup: dimensions
+		source =
+				let
+				  Source = #"winemag-data-source-development",
+				    #"Removed Other Columns" = Table.SelectColumns(Source, {"id", "description"}),
+				  #"Split Description Column by Delimiter" = Table.SplitColumn(
+				    #"Removed Other Columns",
+				    "description",
+				    Splitter.SplitTextByDelimiter(" ", QuoteStyle.Csv),
+				    {
+				      "description.1",
+				      "description.2",
+				      "description.3",
+				      "description.4",
+				      "description.5",
+				      "description.6",
+				      "description.7",
+				      "description.8",
+				      "description.9",
+				      "description.10",
+				      "description.11",
+				      "description.12",
+				      "description.13",
+				      "description.14",
+				      "description.15",
+				      "description.16",
+				      "description.17",
+				      "description.18",
+				      "description.19",
+				      "description.20",
+				      "description.21",
+				      "description.22",
+				      "description.23",
+				      "description.24",
+				      "description.25",
+				      "description.26",
+				      "description.27",
+				      "description.28",
+				      "description.29",
+				      "description.30",
+				      "description.31",
+				      "description.32",
+				      "description.33",
+				      "description.34",
+				      "description.35",
+				      "description.36",
+				      "description.37",
+				      "description.38",
+				      "description.39",
+				      "description.40",
+				      "description.41",
+				      "description.42",
+				      "description.43",
+				      "description.44",
+				      "description.45",
+				      "description.46",
+				      "description.47",
+				      "description.48",
+				      "description.49",
+				      "description.50",
+				      "description.51",
+				      "description.52",
+				      "description.53",
+				      "description.54",
+				      "description.55",
+				      "description.56",
+				      "description.57",
+				      "description.58",
+				      "description.59",
+				      "description.60",
+				      "description.61",
+				      "description.62",
+				      "description.63",
+				      "description.64",
+				      "description.65",
+				      "description.66",
+				      "description.67",
+				      "description.68",
+				      "description.69",
+				      "description.70",
+				      "description.71",
+				      "description.72",
+				      "description.73"
+				    }
+				  ),
+				  #"Changed Split Columns Types" = Table.TransformColumnTypes(
+				    #"Split Description Column by Delimiter",
+				    {
+				      {"description.1", type text},
+				      {"description.2", type text},
+				      {"description.3", type text},
+				      {"description.4", type text},
+				      {"description.5", type text},
+				      {"description.6", type text},
+				      {"description.7", type text},
+				      {"description.8", type text},
+				      {"description.9", type text},
+				      {"description.10", type text},
+				      {"description.11", type text},
+				      {"description.12", type text},
+				      {"description.13", type text},
+				      {"description.14", type text},
+				      {"description.15", type text},
+				      {"description.16", type text},
+				      {"description.17", type text},
+				      {"description.18", type text},
+				      {"description.19", type text},
+				      {"description.20", type text},
+				      {"description.21", type text},
+				      {"description.22", type text},
+				      {"description.23", type text},
+				      {"description.24", type text},
+				      {"description.25", type text},
+				      {"description.26", type text},
+				      {"description.27", type text},
+				      {"description.28", type text},
+				      {"description.29", type text},
+				      {"description.30", type text},
+				      {"description.31", type text},
+				      {"description.32", type text},
+				      {"description.33", type text},
+				      {"description.34", type text},
+				      {"description.35", type text},
+				      {"description.36", type text},
+				      {"description.37", type text},
+				      {"description.38", type text},
+				      {"description.39", type text},
+				      {"description.40", type text},
+				      {"description.41", type text},
+				      {"description.42", type text},
+				      {"description.43", type text},
+				      {"description.44", type text},
+				      {"description.45", type text},
+				      {"description.46", type text},
+				      {"description.47", type text},
+				      {"description.48", type text},
+				      {"description.49", type text},
+				      {"description.50", type text},
+				      {"description.51", type text},
+				      {"description.52", type text},
+				      {"description.53", type text},
+				      {"description.54", type text},
+				      {"description.55", type text},
+				      {"description.56", type text},
+				      {"description.57", type text},
+				      {"description.58", type text},
+				      {"description.59", type text},
+				      {"description.60", type text},
+				      {"description.61", type text},
+				      {"description.62", type text},
+				      {"description.63", type text},
+				      {"description.64", type text},
+				      {"description.65", type text},
+				      {"description.66", type text},
+				      {"description.67", type text},
+				      {"description.68", type text},
+				      {"description.69", type text},
+				      {"description.70", type text},
+				      {"description.71", type text},
+				      {"description.72", type text},
+				      {"description.73", type text}
+				    }
+				  ),
+				  #"Unpivoted Other Columns" = Table.UnpivotOtherColumns(
+				    #"Changed Split Columns Types",
+				    {"id"},
+				    "Attribute",
+				    "Value"
+				  ),
+				  #"Removed Commas" = Table.ReplaceValue(
+				    #"Unpivoted Other Columns",
+				    ",",
+				    "",
+				    Replacer.ReplaceText,
+				    {"Value"}
+				  ),
+				  #"Removed Full Stops" = Table.ReplaceValue(
+				    #"Removed Commas",
+				    ".",
+				    "",
+				    Replacer.ReplaceText,
+				    {"Value"}
+				  ),
+				  #"Removed Colons" = Table.ReplaceValue(
+				    #"Removed Full Stops",
+				    ":",
+				    "",
+				    Replacer.ReplaceText,
+				    {"Value"}
+				  ),
+				  #"Removed Asterisk" = Table.ReplaceValue(
+				    #"Removed Colons",
+				    "*",
+				    "",
+				    Replacer.ReplaceText,
+				    {"Value"}
+				  ),
+				  #"Removed Ampersand" = Table.ReplaceValue(
+				    #"Removed Asterisk",
+				    "&",
+				    "",
+				    Replacer.ReplaceText,
+				    {"Value"}
+				  ),
+				  #"Removed Dollar" = Table.ReplaceValue(
+				    #"Removed Ampersand",
+				    "$",
+				    "",
+				    Replacer.ReplaceText,
+				    {"Value"}
+				  ),
+				  #"Removed Hash" = Table.ReplaceValue(#"Removed Dollar", "#", "", Replacer.ReplaceText, {"Value"}),
+				  #"Removed At" = Table.ReplaceValue(#"Removed Hash", "@", "", Replacer.ReplaceText, {"Value"}),
+				  #"Removed Exclamation" = Table.ReplaceValue(
+				    #"Removed At",
+				    "!",
+				    "",
+				    Replacer.ReplaceText,
+				    {"Value"}
+				  ),
+				  #"Removed Caret" = Table.ReplaceValue(
+				    #"Removed Exclamation",
+				    "^",
+				    "",
+				    Replacer.ReplaceText,
+				    {"Value"}
+				  ),
+				  #"Removed Left Parenthesis" = Table.ReplaceValue(
+				    #"Removed Caret",
+				    "(",
+				    "",
+				    Replacer.ReplaceText,
+				    {"Value"}
+				  ),
+				  #"Removed Right Parenthesis" = Table.ReplaceValue(
+				    #"Removed Left Parenthesis",
+				    ")",
+				    "",
+				    Replacer.ReplaceText,
+				    {"Value"}
+				  ),
+				  #"Removed Left Square Bracket" = Table.ReplaceValue(
+				    #"Removed Right Parenthesis",
+				    "[",
+				    "",
+				    Replacer.ReplaceText,
+				    {"Value"}
+				  ),
+				  #"Removed Right Square Bracket" = Table.ReplaceValue(
+				    #"Removed Left Square Bracket",
+				    "]",
+				    "",
+				    Replacer.ReplaceText,
+				    {"Value"}
+				  ),
+				  #"Removed Left Brace" = Table.ReplaceValue(
+				    #"Removed Right Square Bracket",
+				    "{",
+				    "",
+				    Replacer.ReplaceText,
+				    {"Value"}
+				  ),
+				  #"Removed Right Brace" = Table.ReplaceValue(
+				    #"Removed Left Brace",
+				    "}",
+				    "",
+				    Replacer.ReplaceText,
+				    {"Value"}
+				  ),
+				  #"Removed Minus" = Table.ReplaceValue(
+				    #"Removed Right Brace",
+				    "-",
+				    "",
+				    Replacer.ReplaceText,
+				    {"Value"}
+				  ),
+				  #"Removed Slash" = Table.ReplaceValue(#"Removed Minus", "/", "", Replacer.ReplaceText, {"Value"}),
+				  #"Removed Semicolon" = Table.ReplaceValue(
+				    #"Removed Slash",
+				    ";",
+				    "",
+				    Replacer.ReplaceText,
+				    {"Value"}
+				  ),
+				  #"Removed Single Quotes" = Table.ReplaceValue(
+				    #"Removed Semicolon",
+				    "'",
+				    "",
+				    Replacer.ReplaceText,
+				    {"Value"}
+				  ),
+				  #"Removed Double Quotes" = Table.ReplaceValue(
+				    #"Removed Single Quotes",
+				    """",
+				    "",
+				    Replacer.ReplaceText,
+				    {"Value"}
+				  ),
+				  #"Removed Question Marks" = Table.ReplaceValue(
+				    #"Removed Double Quotes",
+				    "?",
+				    "",
+				    Replacer.ReplaceText,
+				    {"Value"}
+				  ),
+				  #"Removed Backtick" = Table.ReplaceValue(
+				    #"Removed Question Marks",
+				    "‘",
+				    "",
+				    Replacer.ReplaceText,
+				    {"Value"}
+				  ),
+				  #"Replaced Value" = Table.ReplaceValue(
+				    #"Removed Backtick",
+				    "“",
+				    "",
+				    Replacer.ReplaceText,
+				    {"Value"}
+				  ),
+				  #"Replaced Percent" = Table.ReplaceValue(
+				    #"Replaced Value",
+				    "%",
+				    "",
+				    Replacer.ReplaceText,
+				    {"Value"}
+				  ),
+				  #"Removed Non-Alphanumeric Values" = Table.SelectRows(
+				    #"Replaced Percent",
+				    each [Value] = Text.Select([Value], {"a" .. "z", "A" .. "Z", "0" .. "9"})
+				  ),
+				  #"Filtered For Non Blank Rows" = Table.SelectRows(
+				    #"Removed Non-Alphanumeric Values",
+				    each [Value] <> "" and [Value] <> "#(#)(cr)#(#)(lf)"
+				  ),
+				  #"Added Check for Numeric Value" = Table.AddColumn(
+				    #"Filtered For Non Blank Rows",
+				    "Custom",
+				    each Value.Is(Value.FromText([Value]), type number)
+				  ),
+				  #"Filtered For Non Numeric Values" = Table.SelectRows(
+				    #"Added Check for Numeric Value",
+				    each ([Custom] = false)
+				  ),
+				  #"Added Text Length Column" = Table.AddColumn(
+				    #"Filtered For Non Numeric Values",
+				    "Text Length",
+				    each Text.Length([Value]),
+				    Int64.Type
+				  ),
+				  #"Filtered Out 1 or 2 Character Words" = Table.SelectRows(
+				    #"Added Text Length Column",
+				    each [Text Length] >= 3
+				  ),
+				  #"Lowercased Text" = Table.TransformColumns(
+				    #"Filtered Out 1 or 2 Character Words",
+				    {{"Value", Text.Lower, type text}}
+				  ),
+				  #"Capitalized Each Word" = Table.TransformColumns(
+				    #"Lowercased Text",
+				    {{"Value", Text.Proper, type text}}
+				  ),
+				  #"Filtered Out Junk From Rows" = Table.SelectRows(
+				    #"Capitalized Each Word",
+				    each (
+				      [Value]
+				        <> "'08"
+				        and [Value] <> "A1611"
+				        and [Value] <> "A307"
+				        and [Value] <> "Accessible—With"
+				        and [Value] <> "Across"
+				        and [Value] <> "Add"
+				        and [Value] <> "Added"
+				        and [Value] <> "Adds"
+				        and [Value] <> "Against"
+				        and [Value] <> "All"
+				        and [Value] <> "Along"
+				        and [Value] <> "Alongside"
+				        and [Value] <> "Already"
+				        and [Value] <> "Although"
+				        and [Value] <> "And"
+				        and [Value] <> "Are"
+				        and [Value] <> "Area"
+				        and [Value] <> "Around"
+				        and [Value] <> "Back"
+				        and [Value] <> "Backed"
+				        and [Value] <> "Backing"
+				        and [Value] <> "Barely"
+				        and [Value] <> "Base"
+				        and [Value] <> "Becoming"
+				        and [Value] <> "Bottle"
+				        and [Value] <> "Bottling"
+				        and [Value] <> "Box"
+				        and [Value] <> "But"
+				        and [Value] <> "Capture"
+				        and [Value] <> "Carry"
+				        and [Value] <> "Case"
+				        and [Value] <> "Certainly"
+				        and [Value] <> "Climate"
+				        and [Value] <> "Close"
+				        and [Value] <> "Comes"
+				        and [Value] <> "Companion"
+				        and [Value] <> "Complement"
+				        and [Value] <> "Complements"
+				        and [Value] <> "Con"
+				        and [Value] <> "District"
+				        and [Value] <> "End"
+				        and [Value] <> "Ending"
+				        and [Value] <> "For"
+				        and [Value] <> "From"
+				        and [Value] <> "Giving"
+				        and [Value] <> "Has"
+				        and [Value] <> "Here"
+				        and [Value] <> "Here'S"
+				        and [Value] <> "Include"
+				        and [Value] <> "isn'T"
+				        and [Value] <> "Isn'T"
+				        and [Value] <> "It'S"
+				        and [Value] <> "Its"
+				        and [Value] <> "Like"
+				        and [Value] <> "Mouth"
+				        and [Value] <> "Movement"
+				        and [Value] <> "Much"
+				        and [Value] <> "Off"
+				        and [Value] <> "Offers"
+				        and [Value] <> "Opens"
+				        and [Value] <> "Out"
+				        and [Value] <> "Over"
+				        and [Value] <> "Palate"
+				        and [Value] <> "Producer'S"
+				        and [Value] <> "Rather"
+				        and [Value] <> "Region"
+				        and [Value] <> "Show"
+				        and [Value] <> "Than"
+				        and [Value] <> "That"
+				        and [Value] <> "That'S"
+				        and [Value] <> "The"
+				        and [Value] <> "Them"
+				        and [Value] <> "Then"
+				        and [Value] <> "There"
+				        and [Value] <> "There'S"
+				        and [Value] <> "They"
+				        and [Value] <> "Think"
+				        and [Value] <> "This"
+				        and [Value] <> "Through"
+				        and [Value] <> "Very"
+				        and [Value] <> "Was"
+				        and [Value] <> "Wear"
+				        and [Value] <> "While"
+				        and [Value] <> "Will"
+				        and [Value] <> "Wine"
+				        and [Value] <> "With"
+				        and [Value] <> "Yet"
+				        and [Value] <> "You"
+				        and [Value] <> "Zealand"
+				    )
+				  ),
+				  #"Replaced 'S with 's" = Table.ReplaceValue(
+				    #"Filtered Out Junk From Rows",
+				    "'S",
+				    "'s",
+				    Replacer.ReplaceText,
+				    {"Value"}
+				  ),
+				  #"Filtered Out More Junk" = Table.SelectRows(
+				    #"Replaced 'S with 's",
+				    each [Value]
+				      <> "Now2018"
+				      and [Value] <> "2018-2027"
+				      and [Value] <> "Now–2020"
+				      and [Value] <> "Flavors"
+				  ),
+				  #"Removed Attribute & Custom Columns" = Table.RemoveColumns(
+				    #"Filtered Out More Junk",
+				    {"Attribute", "Custom", "Text Length"}
+				  ),
+				  #"Final Filtering Out of Junk" = Table.SelectRows(
+				    #"Removed Attribute & Custom Columns",
+				    each [Value]
+				      <> "2009"
+				      or [Value] <> "2010"
+				      or [Value] <> "2014"
+				      or [Value] <> "2013"
+				      or [Value] <> "2015"
+				      or [Value] <> "2020-2030"
+				  ),
+				  #"Split Column by Character Transition" = Table.SplitColumn(
+				    #"Final Filtering Out of Junk",
+				    "Value",
+				    Splitter.SplitTextByCharacterTransition({"0" .. "9"}, (c) => not List.Contains({"0" .. "9"}, c)),
+				    {"Value.1", "Value.2"}
+				  ),
+				  #"Added Conditional Column" = Table.AddColumn(
+				    #"Split Column by Character Transition",
+				    "Value",
+				    each if [Value.2] = null then [Value.1] else if [Value.2] <> null then [Value.2] else null
+				  ),
+				  #"Changed Type1" = Table.TransformColumnTypes(#"Added Conditional Column", {{"Value", type text}}),
+				  #"Removed Columns1" = Table.RemoveColumns(#"Changed Type1", {"Value.1", "Value.2"})
+				in
+				  #"Removed Columns1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

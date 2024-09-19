@@ -1,0 +1,39 @@
+table 'Country Max Avg Price'
+	lineageTag: 92ca059f-cdb3-4857-80f3-3e8695260b81
+
+	column country_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 49b77c11-6443-4e26-8a8e-66add8245e24
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: wine_fact[country_key]
+
+		annotation SummarizationSetBy = User
+
+	column AvgPrice
+		dataType: double
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: cab28eaa-5564-4edd-81bd-961a7f5b40b2
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [AvgPrice]
+
+		annotation SummarizationSetBy = User
+
+	partition 'Country Max Avg Price' = calculated
+		mode: import
+		source = ```
+				
+				SUMMARIZE(
+				        wine_fact,
+				        wine_fact[country_key], 
+				        "AvgPrice", 
+				        AVERAGE(wine_fact[price])
+				    )
+				```
+
+	annotation PBI_Id = 76b9dff4a70e49c3af6f220100202a80
+

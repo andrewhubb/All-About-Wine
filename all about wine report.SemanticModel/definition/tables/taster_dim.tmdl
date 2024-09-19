@@ -1,0 +1,53 @@
+table taster_dim
+	lineageTag: 756895b3-922a-4fb0-be96-d4dbec637327
+
+	column taster_name
+		dataType: string
+		lineageTag: 10e42ab3-ed3b-49cd-bb90-e36dad1d87b6
+		summarizeBy: none
+		sourceColumn: taster_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column taster_twitter_handle
+		dataType: string
+		lineageTag: 034b640c-12b7-48c3-b4de-bf2a41692649
+		summarizeBy: none
+		sourceColumn: taster_twitter_handle
+
+		annotation SummarizationSetBy = Automatic
+
+	column taster_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 3ac397ae-3931-497f-ab6f-63afdcff8028
+		summarizeBy: none
+		sourceColumn: taster_key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition taster_dim = m
+		mode: import
+		queryGroup: dimensions
+		source =
+				let
+				  Source = #"winemag-data-source-development",
+				  #"Removed Other Columns" = Table.SelectColumns(Source, {"taster_twitter_handle", "taster_name"}),
+				  #"Reordered Columns" = Table.ReorderColumns(
+				    #"Removed Other Columns",
+				    {"taster_name", "taster_twitter_handle"}
+				  ),
+				  #"Removed Duplicates" = Table.Distinct(#"Reordered Columns"),
+				  #"Filtered Out Null Taster" = Table.SelectRows(
+				    #"Removed Duplicates",
+				    each ([taster_name] <> null)
+				  ),
+				  #"Added Index" = Table.AddIndexColumn(#"Filtered Out Null Taster", "Index", 1, 1, Int64.Type),
+				  #"Renamed Columns" = Table.RenameColumns(#"Added Index", {{"Index", "taster_key"}})
+				in
+				  #"Renamed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
