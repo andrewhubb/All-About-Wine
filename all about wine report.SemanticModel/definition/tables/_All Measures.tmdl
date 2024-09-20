@@ -93,14 +93,16 @@ table '_All Measures'
 		displayFolder: Numbers of Things
 		lineageTag: f711a557-6536-46a1-8b2b-e4857285e068
 
-	measure 'Avg Points' =
+	measure 'Avg Points' = ```
 			
 			AVERAGE(
 			    'wine_fact'[points]
-			)
-		formatString: 0
+			) 
+			```
 		displayFolder: Average
 		lineageTag: 03c817fb-fb17-4b2f-b90d-5a01625fe10c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure '# Reviews' =
 			
@@ -135,6 +137,7 @@ table '_All Measures'
 			)
 			```
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: Maximum
 		lineageTag: 9e491c2f-68d3-4260-ab04-305bbe4c34ef
 
 	measure 'Country With Max Avg Price' = ```
@@ -213,6 +216,7 @@ table '_All Measures'
 			)
 			```
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: Minimum
 		lineageTag: 69b5d79a-90d9-4a88-95fe-da5fbbf76bc0
 
 	measure 'Country With Max Median Price' = ```
@@ -258,6 +262,7 @@ table '_All Measures'
 			)
 			```
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: Maximum
 		lineageTag: b4fc718c-f242-4973-97f3-54e4eb195d32
 
 	measure 'Country With Max Avg Points' = ```
@@ -336,6 +341,7 @@ table '_All Measures'
 			
 			```
 		formatString: 0
+		displayFolder: Maximum
 		lineageTag: 4d786631-7b30-484a-9817-f28a935f804e
 
 	measure 'Min Points' = ```
@@ -346,6 +352,7 @@ table '_All Measures'
 			
 			```
 		formatString: 0
+		displayFolder: Minimum
 		lineageTag: fa866e94-b871-4694-b5a8-2955c27bf668
 
 	measure '# Wine Varieties' =
@@ -406,7 +413,7 @@ table '_All Measures'
 			)
 		lineageTag: 96d7204f-a5c5-4aee-be33-bc7cbd72ae8f
 
-	measure '# Wineries' = ```
+	measure '# Wineries (FACT TABLE)' = ```
 			
 			    DISTINCTCOUNT(wine_fact[winery_key]) 
 			
@@ -514,7 +521,7 @@ table '_All Measures'
 			    Dense
 			)
 		formatString: 0
-		displayFolder: Numbers of Things
+		displayFolder: Ranking
 		lineageTag: bde83179-52eb-4f58-b92a-a048708272d4
 
 	measure 'Select Wine Variety Rank (Province)' = ```
@@ -537,12 +544,12 @@ table '_All Measures'
 			   ALLSELECTED(
 			    province_dim[province]
 			   ),
-			    [# Wineries],,
+			    [# Wineries (FACT TABLE)],,
 			    DESC,
 			    Dense
 			)
 		formatString: 0
-		displayFolder: Numbers of Things
+		displayFolder: Ranking
 		lineageTag: 18871882-a0d9-4b86-bae8-c0d7c4f5043d
 
 	measure 'Select Winery Rank (Province)' = ```
@@ -902,7 +909,7 @@ table '_All Measures'
 			    Dense
 			)
 		formatString: 0
-		displayFolder: Numbers of Things
+		displayFolder: Ranking
 		lineageTag: 3d08ac9b-1e31-49ce-a327-c2c53119b37b
 
 	measure 'Select Wine Review Rank (Country)' = ```
@@ -925,12 +932,12 @@ table '_All Measures'
 			   ALLSELECTED(
 			    country_dim[country]
 			   ),
-			    [# Wineries],,
+			    [# Wineries (FACT TABLE)],,
 			    DESC,
 			    Dense
 			)
 		formatString: 0
-		displayFolder: Numbers of Things
+		displayFolder: Ranking
 		lineageTag: da00843a-85a8-44c0-a6f8-9a410e7b3c23
 
 	measure 'Select Winery Rank (Country)' = ```
@@ -958,7 +965,7 @@ table '_All Measures'
 			    Dense
 			)
 		formatString: 0
-		displayFolder: Average
+		displayFolder: Ranking
 		lineageTag: 142d30c1-3bcc-4410-b14a-3bcdbca62c36
 
 	measure 'Select Avg Price Rank (Country)' = ```
@@ -986,7 +993,7 @@ table '_All Measures'
 			    Dense
 			)
 		formatString: 0
-		displayFolder: Average
+		displayFolder: Ranking
 		lineageTag: 8fd5d6ec-e0fb-4dbc-9967-e1ddacedb715
 
 	measure 'Select Avg Points Rank (Country)' = ```
@@ -1007,23 +1014,26 @@ table '_All Measures'
 			    wine_fact[price]
 			)
 		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: Median
 		lineageTag: 9b84e565-ec88-4665-bf17-8c9dcb21f211
 
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
-	measure 'Median Price Rank (Country)' =
+	measure 'Median Price Rank (Country)' = ```
 			
 			VAR SelectedTopN = [Selected N]
 			RETURN
 			RANKX(
 			   ALLSELECTED(
 			    country_dim[country]
-			   ),
-			    [Median Price],,
+			   ),   
+			    ([Median Price]+[Avg Points]/1000),,
 			    DESC,
 			    Dense
 			)
+			```
 		formatString: 0
+		displayFolder: Ranking
 		lineageTag: 81156676-dbad-4069-9c02-dc1c42cf3350
 
 	measure 'Winery Name' =
@@ -1053,7 +1063,7 @@ table '_All Measures'
 			    Dense
 			)
 		formatString: 0
-		displayFolder: Numbers of Things
+		displayFolder: Ranking
 		lineageTag: d72c7f57-d5cb-45c9-aff6-8bc7449889cf
 
 	measure 'Select Wine Variety Rank (Variety)' = ```
@@ -1103,33 +1113,29 @@ table '_All Measures'
 			    Dense
 			)
 		formatString: 0
-		displayFolder: Average
+		displayFolder: Ranking
 		lineageTag: e8e50c47-d983-4159-9fb0-a85e81608171
 
 	measure 'Avg Price Points Ratio' = ```
 			
 			VAR Ratio = DIVIDE(
-			    [Avg Price],
-			    [Avg Points]    
+			    [Avg Price], 
+			    [Avg Points]
 			)
 			RETURN
 			IF(
-			    ISBLANK(
-			        Ratio
-			    ),
-			    999999,
+			    ISBLANK(Ratio),
+			    INT(999999+RAND()*1000),
 			    Ratio 
-			    + (
-			        (MAX(wine_fact[year]) 
-			        / 100000000) 
-			        + (1/[# Wines]) 
-			        / 1000000000
-			    )
+			    + (MAX(wine_fact[year]) / 100000000) 
+			    + (1/[# Wines]) / 1000000000
 			)
+			
 			```
-		formatString: 0.00
 		displayFolder: Average
 		lineageTag: 897a0f80-9394-449c-9529-5792a8240d32
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Select Winery Rank (Winery)' = ```
 			
@@ -1227,11 +1233,12 @@ table '_All Measures'
 			        ),
 			        wine_fact[area] <> BLANK()
 			    ),
-			    [# Wineries],,
+			    [# Wineries (FACT TABLE)],,
 			    DESC,
 			    Dense
 			)
 		formatString: 0
+		displayFolder: Ranking
 		lineageTag: 38d3d815-9e74-4aa4-8de5-bc888e02705e
 
 	measure 'Select Winery Rank (Area)' = ```
@@ -1244,6 +1251,89 @@ table '_All Measures'
 			```
 		formatString: 0
 		lineageTag: 734ccfc9-aba9-44aa-a41f-5cb81578e238
+
+	measure '# Wineries (CROSSFILTER)' = ```
+			
+			CALCULATE( 
+			    DISTINCTCOUNT( winery_dim[winery]), 
+			    CROSSFILTER(
+			        wine_fact[winery_key], 
+			        winery_dim[winery_key], 
+			        Both 
+			    )
+			)
+			```
+		formatString: 0
+		displayFolder: Numbers of Things
+		lineageTag: d5c80535-0198-4907-8205-411708e739af
+
+	measure 'Select Median Price Rank (Country)' = ```
+			
+			IF (     
+			    [Median Price Rank (Country)] <= [Selected N],    
+			    1,
+			    0
+			)
+			```
+		formatString: 0
+		lineageTag: 0b8c3730-f6cc-44fb-bd04-48ede8864b9c
+
+	measure 'Avg Points Rank (Winery)' = ```
+			
+			RANKX(
+			   ALL(
+			    winery_dim[winery]
+			   ),    
+			    [Avg Points]-([Avg Price Points Ratio] / 1000),,
+			    ASC,
+			    Skip
+			)
+			```
+		formatString: 0
+		lineageTag: da780039-7742-47b5-abf8-95e91ae59d49
+
+	measure 'Select Avg Points Rank (Winery)' = ```
+			
+			IF(
+			    ISNUMBER(
+			        [Avg Price Point Ratio Rank (winery)]
+			    ),
+			    IF(
+			        [Avg Points Rank (Winery)] <= [Selected N],    
+			        1,
+			        0
+			    ),
+			    0
+			)
+			```
+		formatString: 0
+		lineageTag: 1f6c5cc2-77fc-4109-aa66-0c6611dd8aec
+
+	measure 'Top Winery (Avg Price / Points Ratio)' = ```
+			
+			    TOPN(
+			        1,
+			        ALL(winery_dim[winery]),
+			        [Avg Price Points Ratio],
+			        ASC
+			    )
+			
+			    
+			```
+		lineageTag: a53943f9-4ae2-4f67-b628-558ddd69ceb4
+
+	measure 'Avg Price Points Ratio (No Blanks)' =
+			
+			CALCULATE(
+			    [Avg Price Points Ratio],
+			    FILTER(
+			        wine_fact,
+			        NOT(ISBLANK([Avg Price Points Ratio]))
+			    )
+			)
+		lineageTag: 21efb7fe-3c5a-447e-be91-c46a10f3bbdb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column Column1
 		dataType: string

@@ -189,7 +189,6 @@ table wine_fact
 
 	column variety_key
 		dataType: int64
-		isHidden
 		formatString: 0
 		lineageTag: 894564fb-fe2d-451b-a234-7f3bb1f801e0
 		summarizeBy: none

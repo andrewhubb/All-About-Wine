@@ -147,7 +147,9 @@ cultureInfo en-GB
 			            "Weight": 0.466
 			          }
 			        },
-			        {}
+			        {
+			          "": {}
+			        }
 			      ]
 			    },
 			    "province_dim.province_key": {
@@ -5838,7 +5840,7 @@ cultureInfo en-GB
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_All Measures",
-			          "ConceptualProperty": "# Wineries"
+			          "ConceptualProperty": "# Wineries (FACT TABLE)"
 			        }
 			      },
 			      "State": "Generated",
