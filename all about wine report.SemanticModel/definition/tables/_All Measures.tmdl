@@ -1280,13 +1280,16 @@ table '_All Measures'
 
 	measure 'Avg Points Rank (Winery)' = ```
 			
-			RANKX(
-			   ALL(
-			    winery_dim[winery]
-			   ),    
-			    [Avg Points]-([Avg Price Points Ratio] / 1000),,
-			    ASC,
-			    Skip
+			RANKX(    
+			    FILTER(
+			        ALLSELECTED(winery_dim),
+			        winery_dim[winery] <> ""
+			    ),
+			    [Avg Points] + [Winery Tie Breaker]
+			    //([Avg Price Points Ratio] / 1000)  
+			    ,,
+			    DESC,
+			    Dense
 			)
 			```
 		formatString: 0
@@ -1327,11 +1330,19 @@ table '_All Measures'
 			CALCULATE(
 			    [Avg Price Points Ratio],
 			    FILTER(
-			        wine_fact,
+			        ALLSELECTED(wine_fact),
 			        NOT(ISBLANK([Avg Price Points Ratio]))
 			    )
 			)
 		lineageTag: 21efb7fe-3c5a-447e-be91-c46a10f3bbdb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Winery Tie Breaker' = ```
+			MIN(winery_dim[winery_key]) / 10000000
+			
+			```
+		lineageTag: d3cda2ee-57c0-42a6-aa82-9351113100e4
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 

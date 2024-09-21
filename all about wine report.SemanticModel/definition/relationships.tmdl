@@ -10,20 +10,6 @@ relationship d06775f8-dcb5-49f5-b2dd-56e968c082f4
 	fromColumn: wine_fact.winery_key
 	toColumn: winery_dim.winery_key
 
-relationship 80b89fa2-a460-41df-8d74-078211dc3225
-	fromColumn: description_dim.id
-	toColumn: wine_fact.id
-
-relationship AutoDetected_66dc2410-0efe-4103-aa26-c2a27e5d23ef
-	fromColumn: wine_fact.designation_key
-	toColumn: designation_dim.designation_key
-
-relationship ea63c8b3-9cd7-3413-9d82-eca43cfbfdc3
-	crossFilteringBehavior: bothDirections
-	toCardinality: many
-	fromColumn: word_summary_pqe.Value
-	toColumn: description_dim.Value
-
 relationship 8993f8af-771f-be20-26fb-afdcf3403108
 	fromColumn: wine_fact.country_key
 	toColumn: country_dim.country_key
@@ -45,4 +31,12 @@ relationship AutoDetected_cd12effa-70f5-4f73-aaaa-38e157b03f35
 relationship AutoDetected_6ce3343b-aebb-437f-ba9d-a1bfb1a38612
 	fromColumn: wine_fact.variety_key
 	toColumn: variety_dim.variety_key
+
+relationship AutoDetected_986c328b-5f9f-4fe1-bf3a-e99b070ff285
+	fromColumn: description_dim.Value
+	toColumn: word_summary_pqe.Value
+
+relationship 88217e29-2f39-d184-0f14-3734c5129045
+	fromColumn: description_dim.id
+	toColumn: wine_fact.id
 

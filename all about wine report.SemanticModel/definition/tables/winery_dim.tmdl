@@ -27,9 +27,10 @@ table winery_dim
 				  #"Removed Other Columns" = Table.SelectColumns(Source,{"winery"}),
 				  #"Removed Duplicates"    = Table.Distinct(#"Removed Other Columns"),
 				  #"Added Index"           = Table.AddIndexColumn(#"Removed Duplicates", "Index", 1, 1, Int64.Type),
-				  #"Renamed Columns"       = Table.RenameColumns(#"Added Index", {{"Index", "winery_key"}})
+				  #"Renamed Columns"       = Table.RenameColumns(#"Added Index", {{"Index", "winery_key"}}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Renamed Columns",{"winery_key", "winery"})
 				in
-				    #"Renamed Columns"
+				    #"Reordered Columns"
 
 	annotation PBI_ResultType = Table
 

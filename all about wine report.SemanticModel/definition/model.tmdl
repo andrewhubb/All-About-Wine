@@ -32,16 +32,15 @@ ref table region_dim
 ref table taster_dim
 ref table winery_dim
 ref table wine_fact
-ref table description_dim
 ref table word_summary_pqe
 ref table 'z word rank'
 ref table '_All Measures'
 ref table country_dim
-ref table designation_dim
 ref table 'Country Max Avg Price'
 ref table 'Top N'
 ref table value_rating_dim
 ref table variety_dim
+ref table description_dim
 
 ref cultureInfo en-GB
 

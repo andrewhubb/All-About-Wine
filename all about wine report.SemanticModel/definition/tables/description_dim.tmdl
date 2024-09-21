@@ -1,10 +1,10 @@
 table description_dim
-	lineageTag: 827287f8-1991-4f5a-99a0-315905b87798
+	lineageTag: 47c34439-c3b1-4f5d-b01e-9d9fe445cf94
 
 	column id
 		dataType: int64
 		formatString: 0
-		lineageTag: 93ddc9e1-e34a-4ef7-9d1d-253cc9f2640c
+		lineageTag: 776985de-b0b5-4e1c-b1d9-543e06525dd0
 		summarizeBy: none
 		sourceColumn: id
 
@@ -12,7 +12,7 @@ table description_dim
 
 	column Value
 		dataType: string
-		lineageTag: 0d08ea63-38b7-43e1-b0aa-0a8f09d7de39
+		lineageTag: 0aa6d1bf-987c-43de-8a40-c03cb4473f33
 		summarizeBy: none
 		sourceColumn: Value
 
@@ -521,7 +521,7 @@ table description_dim
 				in
 				  #"Removed Columns1"
 
-	annotation PBI_ResultType = Table
-
 	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
 

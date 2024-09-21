@@ -172,7 +172,7 @@ table wine_fact
 		isHidden
 		formatString: 0
 		lineageTag: 7b5b317c-b514-498a-a7b3-0afbfa0ed3e6
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: designation_key
 
 		changedProperty = IsHidden

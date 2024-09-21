@@ -187,3 +187,28 @@ expression No_Of_Rows_To_Load = 250000 meta [IsParameterQuery=true, Type="Number
 
 	annotation PBI_ResultType = Number
 
+expression designation_dim =
+		let
+		  Source = #"winemag-data-source-development",
+		  #"Removed Other Columns" = Table.SelectColumns(Source, {"designation"}),
+		  #"Replaced Value" = Table.ReplaceValue(
+		    #"Removed Other Columns",
+		    "#NAME?",
+		    "",
+		    Replacer.ReplaceText,
+		    {"designation"}
+		  ),
+		  #"Removed Duplicates" = Table.Distinct(#"Replaced Value"),
+		  #"Sorted Rows" = Table.Sort(#"Removed Duplicates", {{"designation", Order.Ascending}}),
+		  #"Filtered Rows" = Table.SelectRows(#"Sorted Rows", each ([designation] <> "")),
+		  #"Added Index" = Table.AddIndexColumn(#"Filtered Rows", "Index", 1, 1, Int64.Type),
+		  #"Renamed Columns" = Table.RenameColumns(#"Added Index", {{"Index", "designation_key"}})
+		in
+		  #"Renamed Columns"
+	lineageTag: 914d2361-43ea-4e1b-95f0-725f413522ef
+	queryGroup: dimensions
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
