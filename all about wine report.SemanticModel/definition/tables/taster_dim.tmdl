@@ -26,6 +26,22 @@ table taster_dim
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Image URL'
+		dataType: string
+		lineageTag: b21992a5-939c-4e11-87f7-c3a2d3ecb331
+		summarizeBy: none
+		sourceColumn: Image URL
+
+		annotation SummarizationSetBy = Automatic
+
+	column Details
+		dataType: string
+		lineageTag: ddb0f3a7-7f5a-4110-a888-c247debcbe8c
+		summarizeBy: none
+		sourceColumn: Details
+
+		annotation SummarizationSetBy = Automatic
+
 	partition taster_dim = m
 		mode: import
 		queryGroup: dimensions
@@ -43,9 +59,12 @@ table taster_dim
 				    each ([taster_name] <> null)
 				  ),
 				  #"Added Index" = Table.AddIndexColumn(#"Filtered Out Null Taster", "Index", 1, 1, Int64.Type),
-				  #"Renamed Columns" = Table.RenameColumns(#"Added Index", {{"Index", "taster_key"}})
+				  #"Renamed Columns" = Table.RenameColumns(#"Added Index", {{"Index", "taster_key"}}),
+				    #"Merged Queries" = Table.NestedJoin(#"Renamed Columns", {"taster_name"}, #"Taster Info", {"Taster Name"}, "Taster Info", JoinKind.LeftOuter),
+				    #"Expanded Taster Info" = Table.ExpandTableColumn(#"Merged Queries", "Taster Info", {"Image URL", "Details"}, {"Image URL", "Details"}),
+				    #"Reordered Columns1" = Table.ReorderColumns(#"Expanded Taster Info",{"taster_key", "taster_name", "taster_twitter_handle", "Image URL", "Details"})
 				in
-				  #"Renamed Columns"
+				  #"Reordered Columns1"
 
 	annotation PBI_ResultType = Table
 

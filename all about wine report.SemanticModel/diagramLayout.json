@@ -4,14 +4,14 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 104.51060894508691,
-        "y": 4005.7652568644535
+        "x": 1295.3997611616589,
+        "y": 6046.5517241379312
       },
       "nodes": [
         {
           "location": {
             "x": 1275.5717134718388,
-            "y": 4004.858392663069
+            "y": 6006.1247622915416
           },
           "nodeIndex": "region_dim",
           "nodeLineageTag": "43549e18-2650-4bfa-88e6-f723fec6a67d",
@@ -19,12 +19,12 @@
             "height": 154.14943993760789,
             "width": 234
           },
-          "zIndex": 5
+          "zIndex": 7
         },
         {
           "location": {
             "x": 434.8772301803146,
-            "y": 4002.5327392569448
+            "y": 6003.7991088854169
           },
           "nodeIndex": "taster_dim",
           "nodeLineageTag": "756895b3-922a-4fb0-be96-d4dbec637327",
@@ -32,12 +32,12 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 6
+          "zIndex": 15
         },
         {
           "location": {
             "x": 1512.734826206638,
-            "y": 4338.85841562932
+            "y": 6340.1247852577926
           },
           "nodeIndex": "wine_fact",
           "nodeLineageTag": "f8762d49-4913-4512-bae7-dbe5efa6438a",
@@ -45,12 +45,12 @@
             "height": 176.48256084229388,
             "width": 234
           },
-          "zIndex": 7
+          "zIndex": 8
         },
         {
           "location": {
             "x": 51,
-            "y": 4006.7687816185712
+            "y": 6008.0351512470434
           },
           "nodeIndex": "winery_dim",
           "nodeLineageTag": "7e12d3d0-833e-4ab1-b752-3a6e45c87d16",
@@ -58,28 +58,15 @@
             "height": 128,
             "width": 234
           },
-          "zIndex": 8
-        },
-        {
-          "location": {
-            "x": 2152.9017379131865,
-            "y": 4339.1356146905873
-          },
-          "nodeIndex": "z word rank",
-          "nodeLineageTag": "1c48d49a-cc27-4b55-9b77-d9805af5bfdc",
-          "size": {
-            "height": 145,
-            "width": 234
-          },
           "zIndex": 9
         },
         {
           "location": {
-            "x": 2427.7790715064866,
-            "y": 4340.0602037548178
+            "x": 2152.9017379131865,
+            "y": 6340.40198431906
           },
-          "nodeIndex": "_All Measures",
-          "nodeLineageTag": "e4ea62c7-c796-4ee9-a1d3-853dbae14a99",
+          "nodeIndex": "z word rank",
+          "nodeLineageTag": "1c48d49a-cc27-4b55-9b77-d9805af5bfdc",
           "size": {
             "height": 145,
             "width": 234
@@ -88,8 +75,21 @@
         },
         {
           "location": {
+            "x": 2427.7790715064866,
+            "y": 6341.32657338329
+          },
+          "nodeIndex": "_All Measures",
+          "nodeLineageTag": "e4ea62c7-c796-4ee9-a1d3-853dbae14a99",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
             "x": 711.1464334406428,
-            "y": 4002.5327392569448
+            "y": 6003.7991088854169
           },
           "nodeIndex": "province_dim",
           "nodeLineageTag": "89a3a8d9-4c5e-4a71-8e43-30444c3b1141",
@@ -102,7 +102,7 @@
         {
           "location": {
             "x": 1887.9405008234553,
-            "y": 4012.1356146905869
+            "y": 6013.401984319059
           },
           "nodeIndex": "country_dim",
           "nodeLineageTag": "e70c34cd-6194-4515-8de7-719ba38be0f5",
@@ -110,12 +110,12 @@
             "height": 150.87359984401974,
             "width": 234
           },
-          "zIndex": 14
+          "zIndex": 13
         },
         {
           "location": {
             "x": 1911.0281380691667,
-            "y": 4598.8864407658621
+            "y": 6600.1528103943347
           },
           "nodeIndex": "word_summary_pqe",
           "nodeLineageTag": "8cf8a0cb-3808-4d84-819f-fac3352b6551",
@@ -123,12 +123,12 @@
             "height": 104,
             "width": 234
           },
-          "zIndex": 4
+          "zIndex": 6
         },
         {
           "location": {
             "x": 1884.706386953615,
-            "y": 4340.8099612844635
+            "y": 6342.0763309129361
           },
           "nodeIndex": "Country Max Avg Price",
           "nodeLineageTag": "92ca059f-cdb3-4857-80f3-3e8695260b81",
@@ -136,12 +136,12 @@
             "height": 145,
             "width": 234
           },
-          "zIndex": 1
+          "zIndex": 3
         },
         {
           "location": {
             "x": 2166.3220096232167,
-            "y": 4012.934961284463
+            "y": 6014.2013309129352
           },
           "nodeIndex": "variety_dim",
           "nodeLineageTag": "e851a714-b822-43f9-a6df-ae9ec692d059",
@@ -149,12 +149,12 @@
             "height": 150.87359984401974,
             "width": 234
           },
-          "zIndex": 2
+          "zIndex": 4
         },
         {
           "location": {
             "x": 2769.8743270963355,
-            "y": 4333.0188373254387
+            "y": 6334.2852069539113
           },
           "nodeIndex": "Top N",
           "nodeLineageTag": "0ac8a9d2-38b3-41e9-bda3-711ed8a3f5b6",
@@ -162,12 +162,12 @@
             "height": 159.95392043674474,
             "width": 234
           },
-          "zIndex": 15
+          "zIndex": 14
         },
         {
           "location": {
             "x": 982.46272983231847,
-            "y": 4004.8061211372251
+            "y": 6006.0724907656977
           },
           "nodeIndex": "value_rating_dim",
           "nodeLineageTag": "2257dcae-1a01-4e81-a7ac-dead2af6d60d",
@@ -175,12 +175,12 @@
             "height": 151.09962662507178,
             "width": 234
           },
-          "zIndex": 3
+          "zIndex": 5
         },
         {
           "location": {
             "x": 1746.859513525972,
-            "y": 4834.847489315006
+            "y": 6836.1138589434786
           },
           "nodeIndex": "description_dim",
           "nodeLineageTag": "47c34439-c3b1-4f5d-b01e-9d9fe445cf94",
@@ -188,11 +188,11 @@
             "height": 128,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 1
         }
       ],
       "name": "All tables",
-      "zoomValue": 65.577784442713167,
+      "zoomValue": 115.99999999999999,
       "pinKeyFieldsToTop": false,
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,

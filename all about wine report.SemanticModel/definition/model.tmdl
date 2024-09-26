@@ -18,16 +18,15 @@ queryGroup 'fact tables'
 
 	annotation PBI_QueryGroupOrder = 2
 
-annotation PBI_QueryOrder = ["winemag-data-source-development","variety_dim","designation_dim","country_dim","description_dim","province_dim","region_dim","taster_dim","winery_dim","wine_fact","word_summary_pqe","value_rating_dim","z word rank","_All Measures","FilePath","FullPath","my_wine_variety_dim","winemag-data-source-production","No_Of_Rows_To_Load"]
+annotation PBI_QueryOrder = ["winemag-data-source-development","variety_dim","designation_dim","country_dim","description_dim","province_dim","region_dim","taster_dim","winery_dim","wine_fact","word_summary_pqe","value_rating_dim","z word rank","_All Measures","FilePath","FullPath","my_wine_variety_dim","winemag-data-source-production","No_Of_Rows_To_Load","Taster Info"]
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBIDesktopVersion = 2.135.7627.0 (24.08)
+annotation PBIDesktopVersion = 2.136.1202.0 (24.09)
 
 annotation PBI_ProTooling = ["DevMode","DaxQueryView_Desktop"]
 
 ref table province_dim
-ref table DateTableTemplate_473a575d-940a-45a3-ba3e-c06ce9f7488a
 ref table region_dim
 ref table taster_dim
 ref table winery_dim

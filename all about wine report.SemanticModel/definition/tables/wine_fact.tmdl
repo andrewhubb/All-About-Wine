@@ -65,7 +65,6 @@ table wine_fact
 
 	column taster_key
 		dataType: int64
-		isHidden
 		formatString: 0
 		lineageTag: 7a3f4a3b-9351-4880-99f3-f0f4ca67169c
 		summarizeBy: none

@@ -12,6 +12,7 @@ table '_All Measures'
 			    Dense
 			)
 		formatString: 0
+		displayFolder: Words
 		lineageTag: b3eb9d19-c026-4f10-ad60-778dd4eca51a
 
 	measure 'Word Count' =
@@ -20,6 +21,7 @@ table '_All Measures'
 			    'description_dim'[id]
 			)
 		formatString: 0
+		displayFolder: Words
 		lineageTag: b4354eb1-3499-44c1-a74c-6dd53fefec17
 
 	measure 'Word Find' = ```
@@ -37,6 +39,7 @@ table '_All Measures'
 			    )
 			)
 			```
+		displayFolder: Words
 		lineageTag: 464ae1ef-472f-46bc-b5e0-69361397d072
 
 	measure '# Wines' =
@@ -137,7 +140,7 @@ table '_All Measures'
 			)
 			```
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
-		displayFolder: Maximum
+		displayFolder: Maximum / Minimum
 		lineageTag: 9e491c2f-68d3-4260-ab04-305bbe4c34ef
 
 	measure 'Country With Max Avg Price' = ```
@@ -216,7 +219,7 @@ table '_All Measures'
 			)
 			```
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
-		displayFolder: Minimum
+		displayFolder: Maximum / Minimum
 		lineageTag: 69b5d79a-90d9-4a88-95fe-da5fbbf76bc0
 
 	measure 'Country With Max Median Price' = ```
@@ -262,7 +265,7 @@ table '_All Measures'
 			)
 			```
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
-		displayFolder: Maximum
+		displayFolder: Maximum / Minimum
 		lineageTag: b4fc718c-f242-4973-97f3-54e4eb195d32
 
 	measure 'Country With Max Avg Points' = ```
@@ -300,15 +303,13 @@ table '_All Measures'
 		displayFolder: Country
 		lineageTag: 64cd9f09-a03e-4186-bd69-44426057f22e
 
-	measure 'Top 10 Highest Reviewed Wines'
-		lineageTag: 12cd9b8b-4ad3-4e1a-bd8d-1551bb236e81
-
 	measure 'Total Points' =
 			
 			SUM(
 			    wine_fact[points]
 			)
 		formatString: #,0
+		displayFolder: Totals
 		lineageTag: 426f1aab-d4c4-46dd-8ebc-d439a8ff0c17
 
 	measure 'Country with Most Wines' =
@@ -341,18 +342,18 @@ table '_All Measures'
 			
 			```
 		formatString: 0
-		displayFolder: Maximum
+		displayFolder: Maximum / Minimum
 		lineageTag: 4d786631-7b30-484a-9817-f28a935f804e
 
 	measure 'Min Points' = ```
 			
 			MIN(    
-			        'wine_fact'[points]
+			    'wine_fact'[points]
 			)
 			
 			```
 		formatString: 0
-		displayFolder: Minimum
+		displayFolder: Maximum / Minimum
 		lineageTag: fa866e94-b871-4694-b5a8-2955c27bf668
 
 	measure '# Wine Varieties' =
@@ -383,6 +384,7 @@ table '_All Measures'
 			        Both
 			    )
 			)
+		displayFolder: Taster
 		lineageTag: 9f200697-8b82-4c43-92bd-6ce6e368a489
 
 	measure 'Taster Twitter Handle' =
@@ -397,6 +399,7 @@ table '_All Measures'
 			        Both
 			    )
 			)
+		displayFolder: Taster
 		lineageTag: 80e02b67-89b3-404c-bfe9-884038301f51
 
 	measure 'Wine Variety' =
@@ -411,6 +414,7 @@ table '_All Measures'
 			        Both
 			    )
 			)
+		displayFolder: Wine / Variety
 		lineageTag: 96d7204f-a5c5-4aee-be33-bc7cbd72ae8f
 
 	measure '# Wineries (FACT TABLE)' = ```
@@ -577,6 +581,7 @@ table '_All Measures'
 			    Dense
 			)
 		formatString: 0
+		displayFolder: Wine / Variety
 		lineageTag: 5cf6cf1e-a675-4c3c-9dac-434f16082794
 
 	measure 'Select Wine Avg Price Rank (Province)' = ```
@@ -707,48 +712,6 @@ table '_All Measures'
 		displayFolder: Most Expensive Wine
 		lineageTag: 2d6ccf27-0008-4977-b7da-cdaa7383af54
 
-	measure 'Taster Name Max Reviews' = ```
-			
-			/*
-			This uses Summarize to return a filtered
-			single column table. I could not use values 
-			as I needed to remove blank taster names from the list
-			*/
-			TOPN(
-			    1,
-			    SUMMARIZE(
-			        CALCULATETABLE(
-			            taster_dim,
-			            taster_dim[taster_name] <> BLANK()
-			        ),
-			        taster_dim[taster_name]
-			    ),
-			    [# Reviews],
-			    DESC
-			)
-			```
-		lineageTag: d6056f49-9bd4-4a23-a692-8381836a4ddb
-
-	measure 'Taster Most # Reviews' = ```
-			
-			/*
-			This uses Summarize to return a filtered
-			single column table. I could not use values 
-			as I needed to remove blank taster names from the list
-			*/
-			VAR TasterMostReviews = [Taster Name Max Reviews]
-			RETURN
-			    CALCULATE(
-			        [# Reviews],        
-			        FILTER(
-			            taster_dim,
-			            taster_dim[taster_name] =TasterMostReviews
-			        )
-			    )     
-			```
-		formatString: #,0
-		lineageTag: 102ed467-ecd9-4f32-a4a2-c0c98926d1cd
-
 	measure 'Wine Age' = ```
 			
 			DATEDIFF(    
@@ -764,6 +727,7 @@ table '_All Measures'
 			)
 			```
 		formatString: 0
+		displayFolder: Wine / Variety
 		lineageTag: 8d196615-ac68-4ea9-8aca-4045b6b57fd4
 
 	measure Year =
@@ -772,6 +736,7 @@ table '_All Measures'
 			    wine_fact[year]
 			)
 		formatString: 0
+		displayFolder: Year
 		lineageTag: 066bef25-c142-4204-9303-9781ee22c7fa
 
 	measure '# Wine Total (Only Show Total)' =
@@ -1048,6 +1013,7 @@ table '_All Measures'
 			        Both
 			    )
 			)
+		displayFolder: Winery
 		lineageTag: 6dfbf9e6-9676-4981-9101-0319d4f9915e
 
 	measure '# Wine Variety Rank (Variety)' =
@@ -1089,6 +1055,7 @@ table '_All Measures'
 			    ),
 			    "All"
 			)
+		displayFolder: Filtered Variety
 		lineageTag: c15d6045-ccf8-4019-a381-3c82fcaa19ef
 
 	measure 'Filtered Variety Wine Info Title' =
@@ -1098,6 +1065,7 @@ table '_All Measures'
 			    "Details of Provinces and Regions Where " & [Filtered Variety] & " is Produced",
 			    "Details of Provinces and Regions for " & [Filtered Variety] & " Wines"
 			)
+		displayFolder: Filtered Variety
 		lineageTag: 572c5f83-4dd5-44d6-8863-125fc39ef22f
 
 	measure 'Avg Price Point Ratio Rank (winery)' =
@@ -1161,7 +1129,7 @@ table '_All Measures'
 			)
 			
 			```
-		formatString: 0
+		formatString: #,0
 		displayFolder: Numbers of Things
 		lineageTag: 67fe6679-0588-4f34-a2ca-8320a9feba41
 
@@ -1181,6 +1149,7 @@ table '_All Measures'
 			
 			
 			```
+		displayFolder: Average
 		lineageTag: c6cb6778-a602-4d9f-95a7-8c8a061aef1b
 
 	measure 'Top Winery Variety' = ```
@@ -1220,6 +1189,7 @@ table '_All Measures'
 			 
 			        
 			```
+		displayFolder: Top/Bottom
 		lineageTag: cc7f461f-624f-4909-898a-6a92aa71d9df
 
 	measure '# Winery Rank (Area)' =
@@ -1250,6 +1220,7 @@ table '_All Measures'
 			)
 			```
 		formatString: 0
+		displayFolder: Selection for Filters
 		lineageTag: 734ccfc9-aba9-44aa-a41f-5cb81578e238
 
 	measure '# Wineries (CROSSFILTER)' = ```
@@ -1276,6 +1247,7 @@ table '_All Measures'
 			)
 			```
 		formatString: 0
+		displayFolder: Selection for Filters
 		lineageTag: 0b8c3730-f6cc-44fb-bd04-48ede8864b9c
 
 	measure 'Avg Points Rank (Winery)' = ```
@@ -1293,6 +1265,7 @@ table '_All Measures'
 			)
 			```
 		formatString: 0
+		displayFolder: Average
 		lineageTag: da780039-7742-47b5-abf8-95e91ae59d49
 
 	measure 'Select Avg Points Rank (Winery)' = ```
@@ -1310,6 +1283,7 @@ table '_All Measures'
 			)
 			```
 		formatString: 0
+		displayFolder: Selection for Filters
 		lineageTag: 1f6c5cc2-77fc-4109-aa66-0c6611dd8aec
 
 	measure 'Top Winery (Avg Price / Points Ratio)' = ```
@@ -1323,6 +1297,7 @@ table '_All Measures'
 			
 			    
 			```
+		displayFolder: Top/Bottom
 		lineageTag: a53943f9-4ae2-4f67-b628-558ddd69ceb4
 
 	measure 'Avg Price Points Ratio (No Blanks)' =
@@ -1334,6 +1309,7 @@ table '_All Measures'
 			        NOT(ISBLANK([Avg Price Points Ratio]))
 			    )
 			)
+		displayFolder: Average
 		lineageTag: 21efb7fe-3c5a-447e-be91-c46a10f3bbdb
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -1342,29 +1318,241 @@ table '_All Measures'
 			MIN(winery_dim[winery_key]) / 10000000
 			
 			```
+		displayFolder: Winery
 		lineageTag: d3cda2ee-57c0-42a6-aa82-9351113100e4
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column Column1
-		dataType: string
-		isHidden
-		lineageTag: 3befd1ae-ef40-4679-ae34-ea2f447e7f53
-		summarizeBy: none
-		sourceColumn: Column1
+	measure 'Top Wine Taster' = ```
+			
+			TOPN(
+			    1,
+			    DISTINCT(taster_dim[taster_name]),
+			    [# Wines],
+			    DESC 
+			)
+			```
+		displayFolder: Top/Bottom
+		lineageTag: d2d48bdd-e795-403a-bf05-fd0b2b6b8348
 
-		changedProperty = IsHidden
+	measure 'Bottom Wine Taster' = ```
+			
+			TOPN(
+			    1,
+			    DISTINCT(taster_dim[taster_name]),
+			    [# Wines],
+			    ASC 
+			)
+			```
+		displayFolder: Top/Bottom
+		lineageTag: 23c8359a-7c90-4176-beb6-7c663e293178
 
-		annotation SummarizationSetBy = Automatic
+	measure 'Top # Wines Tasted' = ```
+			
+			VAR TopWineTasterKey = 
+			    TOPN(
+			        1,
+			        DISTINCT(taster_dim[taster_key]),
+			        [# Wines],
+			        DESC 
+			    )
+			RETURN
+			CALCULATE(
+			    [# Wines],
+			    FILTER(
+			        wine_fact,
+			        wine_fact[taster_key] = TopWineTasterKey
+			    )
+			)
+			```
+		formatString: #,0
+		displayFolder: Top/Bottom
+		lineageTag: d06598c8-d414-4096-9abf-26f042ea2b0a
+
+	measure 'Bottom # Wines Tasted' = ```
+			
+			VAR TopWineTasterKey = 
+			    TOPN(
+			        1,
+			        DISTINCT(taster_dim[taster_key]),
+			        [# Wines],
+			        ASC
+			    )
+			RETURN
+			CALCULATE(
+			    [# Wines],
+			    FILTER(
+			        wine_fact,
+			        wine_fact[taster_key] = TopWineTasterKey
+			    )
+			)
+			```
+		formatString: 0
+		displayFolder: Top/Bottom
+		lineageTag: 18c430d1-b18d-4c29-91ed-d857060bf31e
+
+	measure 'Avg Points Top Wine Taster' = ```
+			
+			VAR TopWineTasterKey = 
+			    TOPN(
+			        1,
+			        DISTINCT(taster_dim[taster_key]),
+			        [# Wines],
+			        DESC 
+			    )
+			RETURN
+			CALCULATE(
+			    [Avg Points],
+			    FILTER(
+			        wine_fact,
+			        wine_fact[taster_key] = TopWineTasterKey
+			    )
+			)
+			```
+		formatString: 0
+		displayFolder: Average
+		lineageTag: ff71cad0-6d31-4239-9132-ea550354d707
+
+	measure 'Avg Points Bottom Wine Taster' = ```
+			
+			VAR TopWineTasterKey = 
+			    TOPN(
+			        1,
+			        DISTINCT(taster_dim[taster_key]),
+			        [# Wines],
+			        ASC
+			    )
+			RETURN
+			CALCULATE(
+			    [Avg Points],
+			    FILTER(
+			        wine_fact,
+			        wine_fact[taster_key] = TopWineTasterKey
+			    )
+			)
+			```
+		formatString: 0
+		displayFolder: Average
+		lineageTag: 0b459b50-2e34-4493-aa22-387bcf30d6fd
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Max Points Top Wine Taster' = ```
+			
+			VAR TopWineTasterKey = [Top Wine Taster Key]
+			    
+			RETURN
+			CALCULATE(
+			    [Max Points],
+			    FILTER(
+			        wine_fact,
+			        wine_fact[taster_key] = TopWineTasterKey
+			    )
+			)
+			```
+		displayFolder: Maximum / Minimum
+		lineageTag: dc6ea8f6-95ec-478a-b4aa-63f77a7837a3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Max Points' = ```
+			
+			Max(    
+			    'wine_fact'[points]
+			)
+			
+			```
+		formatString: 0
+		displayFolder: Maximum / Minimum
+		lineageTag: 0a8bf860-ba2c-4547-a32e-80c550c8962d
+
+	measure 'Min Points Top Wine Taster' = ```
+			
+			VAR TopWineTasterKey = [Top Wine Taster Key]
+			    
+			RETURN
+			CALCULATE(
+			    [Min Points],
+			    FILTER(
+			        wine_fact,
+			        wine_fact[taster_key] = TopWineTasterKey
+			    )
+			)
+			```
+		formatString: 0
+		displayFolder: Min Points Top Wine Taster
+		lineageTag: 785de0ca-c9ec-49db-8a33-a5389fe84c1a
+
+	measure 'Top Wine Taster Key' =
+			
+			TOPN(
+			    1,
+			    DISTINCT(taster_dim[taster_key]),
+			    [# Wines],
+			    DESC
+			)
+		formatString: 0
+		lineageTag: 0a68b3ab-f06f-4adf-8792-7eceeb780f0b
+
+	measure 'Bottom Wine Taster Key' =
+			
+			TOPN(
+			    1,
+			    DISTINCT(taster_dim[taster_key]),
+			    [# Wines],
+			    ASC
+			)
+		formatString: 0
+		lineageTag: ba5a6092-1a6c-423c-9a89-046a89bd08bb
+
+	measure 'Max Points Bottom Wine Taster' = ```
+			
+			VAR BottomWineTasterKey = [Bottom Wine Taster Key]
+			    
+			RETURN
+			CALCULATE(
+			    [Max Points],
+			    FILTER(
+			        wine_fact,
+			        wine_fact[taster_key] = BottomWineTasterKey
+			    )
+			)
+			```
+		formatString: 0
+		lineageTag: 698f1201-d41f-4a54-b63c-f53dba36a80b
+
+	measure 'Min Points Bottom Wine Taster' = ```
+			
+			VAR BottomWineTasterKey = [Bottom Wine Taster Key]
+			    
+			RETURN
+			CALCULATE(
+			    [Min Points],
+			    FILTER(
+			        wine_fact,
+			        wine_fact[taster_key] = BottomWineTasterKey
+			    )
+			)
+			```
+		formatString: 0
+		lineageTag: d74c2c70-5aee-45e3-a51e-ac8387a28461
+
+	measure 'Selected Taster Details' =
+			
+			SELECTEDVALUE(
+			    'Taster Info'[Details]
+			)
+		lineageTag: 186b53e9-f128-4600-8ac3-28e258c5d1d7
 
 	partition '_All Measures' = m
 		mode: import
 		source =
 				let
 				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
-				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}})
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
 				in
-				    #"Changed Type"
+				    #"Removed Columns"
 
 	annotation PBI_ResultType = Table
 
