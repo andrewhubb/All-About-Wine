@@ -1540,9 +1540,24 @@ table '_All Measures'
 	measure 'Selected Taster Details' =
 			
 			SELECTEDVALUE(
-			    'Taster Info'[Details]
+			    taster_dim[Details]
 			)
 		lineageTag: 186b53e9-f128-4600-8ac3-28e258c5d1d7
+
+	measure 'Taster Image URL' =
+			
+			CALCULATE(
+			    MIN(
+			        taster_dim[Image URL]
+			    ),
+			    CROSSFILTER(
+			        wine_fact[taster_key],
+			        taster_dim[taster_key],
+			        Both
+			    )
+			)
+		lineageTag: 89a0c1d9-0d53-4884-b9f2-2dcfa54fb683
+		dataCategory: ImageUrl
 
 	partition '_All Measures' = m
 		mode: import

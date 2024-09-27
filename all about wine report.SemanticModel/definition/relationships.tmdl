@@ -3,6 +3,7 @@ relationship 50406c4f-6661-46fb-a4ec-a22c71193b57
 	toColumn: region_dim.region_key
 
 relationship 4dde288b-6e7a-4ca5-a4ef-38c94abc87cd
+	crossFilteringBehavior: bothDirections
 	fromColumn: wine_fact.taster_key
 	toColumn: taster_dim.taster_key
 
